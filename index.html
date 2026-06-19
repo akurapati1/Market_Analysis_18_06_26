@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Market Briefing + India Intraday — June 18, 2026</title>
+<style>
+  :root[data-theme="dark"] {
+    --bg: #0f1117; --surface: #1a1d27; --card: #1e2235; --card2: #21253a;
+    --border: #2d3348; --text: #e2e8f0; --muted: #8892a4;
+    --green: #22c55e; --red: #ef4444; --gold: #f59e0b; --blue: #3b82f6;
+    --purple: #a855f7; --teal: #14b8a6; --orange: #f97316;
+    --green-bg: rgba(34,197,94,0.08); --red-bg: rgba(239,68,68,0.08);
+    --gold-bg: rgba(245,158,11,0.10); --watch-bg: rgba(100,116,139,0.07);
+    --purple-bg: rgba(168,85,247,0.08);
+  }
+  :root[data-theme="light"] {
+    --bg: #f8fafc; --surface: #ffffff; --card: #f1f5f9; --card2: #e8edf5;
+    --border: #e2e8f0; --text: #0f172a; --muted: #64748b;
+    --green: #16a34a; --red: #dc2626; --gold: #d97706; --blue: #2563eb;
+    --purple: #7c3aed; --teal: #0d9488; --orange: #ea580c;
+    --green-bg: rgba(22,163,74,0.06); --red-bg: rgba(220,38,38,0.06);
+    --gold-bg: rgba(217,119,6,0.08); --watch-bg: rgba(100,116,139,0.05);
+    --purple-bg: rgba(124,58,237,0.06);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.55; }
+
+  .header { background: var(--surface); border-bottom: 2px solid var(--border); padding: 14px 24px; position: sticky; top: 0; z-index: 200; }
+  .header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; }
+  .header h1 { font-size: 1.35rem; font-weight: 800; }
+  .header h1 .accent { color: var(--gold); }
+  .header-meta { font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
+  .market-tone { font-size: 0.82rem; color: var(--teal); margin-top: 5px; font-style: italic; }
+  .theme-btn { background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 0.78rem; white-space: nowrap; }
+  .stats-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .stat-chip { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 3px 11px; font-size: 0.72rem; color: var(--muted); }
+  .stat-chip b { color: var(--text); }
+
+  .nav-tabs { display: flex; gap: 4px; padding: 12px 24px 0; background: var(--surface); border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+  .nav-tab { padding: 8px 16px; font-size: 0.8rem; font-weight: 600; cursor: pointer; border: none; background: none; color: var(--muted); border-bottom: 3px solid transparent; margin-bottom: -1px; transition: all 0.15s; }
+  .nav-tab:hover { color: var(--text); }
+  .nav-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  .section { display: none; padding: 24px 16px; max-width: 1450px; margin: 0 auto; }
+  .section.active { display: block; }
+  .section-title { font-size: 1.05rem; font-weight: 700; color: var(--text); margin: 28px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border); display: flex; align-items: center; gap: 8px; }
+  .section-title:first-child { margin-top: 0; }
+  .section-title .emoji { font-size: 1.15rem; }
+
+  .cap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 20px; }
+  .cap-col-title { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); padding: 8px 12px; background: var(--surface); border-radius: 6px; border: 1px solid var(--border); margin-bottom: 10px; }
+
+  .pick-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 15px; margin-bottom: 10px; }
+  .pick-card.surge  { border-left: 4px solid var(--gold);   background: var(--gold-bg);  }
+  .pick-card.gain   { border-left: 4px solid var(--green);  background: var(--green-bg); }
+  .pick-card.fall   { border-left: 4px solid var(--red);    background: var(--red-bg);   }
+  .pick-card.watch  { border-left: 4px solid var(--muted);  background: var(--watch-bg); }
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+  .ticker-block .ticker { font-size: 1.05rem; font-weight: 800; }
+  .ticker-block .cname  { font-size: 0.76rem; color: var(--muted); margin-top: 1px; }
+  .price-block { text-align: right; }
+  .price-block .price { font-size: 0.95rem; font-weight: 700; }
+  .price-block .chg.pos { color: var(--green); font-size: 0.75rem; }
+  .price-block .chg.neg { color: var(--red);   font-size: 0.75rem; }
+  .badge-row { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
+  .badge { border-radius: 4px; padding: 2px 7px; font-size: 0.67rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; border: 1px solid; }
+  .b-surge     { background: rgba(245,158,11,0.18); color: var(--gold);   border-color: var(--gold);   }
+  .b-gain      { background: rgba(34,197,94,0.15);  color: var(--green);  border-color: var(--green);  }
+  .b-fall      { background: rgba(239,68,68,0.15);  color: var(--red);    border-color: var(--red);    }
+  .b-watch     { background: rgba(100,116,139,0.15); color: var(--muted); border-color: var(--muted);  }
+  .b-reversal  { background: rgba(168,85,247,0.15); color: var(--purple); border-color: var(--purple); }
+  .b-unconf    { background: rgba(249,115,22,0.12); color: var(--orange); border-color: var(--orange); }
+  .b-cap       { background: rgba(59,130,246,0.15); color: var(--blue);   border-color: var(--blue);   }
+  .b-catalyst  { background: rgba(20,184,166,0.15); color: var(--teal);   border-color: var(--teal);   }
+  .b-geo       { background: rgba(168,85,247,0.12); color: var(--purple); border-color: var(--purple); }
+  .clabel { font-size: 0.67rem; font-weight: 700; text-transform: uppercase; color: var(--muted); letter-spacing: 0.06em; margin-top: 8px; margin-bottom: 2px; }
+  .ctext  { font-size: 0.80rem; color: var(--text); line-height: 1.5; }
+  .ctext a { color: var(--blue); text-decoration: none; }
+  .ctext a:hover { text-decoration: underline; }
+  .iss-row { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--border); }
+  .iss-lbl { font-size: 0.67rem; color: var(--muted); }
+  .iss-comp { font-size: 0.67rem; background: var(--surface); border: 1px solid var(--border); border-radius: 3px; padding: 1px 5px; }
+  .iss-total { font-size: 0.78rem; font-weight: 800; color: var(--gold); }
+
+  .pred-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; }
+  .pred-col-title { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); padding: 8px 12px; background: var(--surface); border-radius: 6px; border: 1px solid var(--border); margin-bottom: 10px; }
+  .global-card { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--border); border-radius: 10px; padding: 14px; margin-bottom: 10px; }
+  .global-card.rise { border-left-color: var(--green); background: var(--green-bg); }
+  .global-card.fall { border-left-color: var(--red);   background: var(--red-bg);   }
+  .score-pill { font-size: 0.75rem; font-weight: 800; padding: 3px 9px; border-radius: 12px; }
+  .score-pill.pos { background: rgba(34,197,94,0.2); color: var(--green); }
+  .score-pill.neg { background: rgba(239,68,68,0.2); color: var(--red); }
+
+  .geo-card { background: var(--card2); border: 1px solid var(--border); border-left: 4px solid var(--purple); border-radius: 10px; padding: 16px; margin-bottom: 14px; }
+  .geo-theme { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .geo-theme .icon { font-size: 1.1rem; }
+  .geo-sub { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--muted); letter-spacing: 0.05em; margin: 10px 0 5px; }
+  .geo-item { font-size: 0.8rem; padding: 4px 0; border-bottom: 1px solid var(--border); }
+  .geo-item:last-child { border-bottom: none; }
+  .geo-win { color: var(--green); font-weight: 700; }
+  .geo-lose { color: var(--red); font-weight: 700; }
+
+  .news-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 13px; margin-bottom: 10px; }
+  .news-card .nhead { font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; }
+  .news-card .nbody { font-size: 0.80rem; color: var(--muted); line-height: 1.5; }
+  .news-card .nsrc  { font-size: 0.72rem; margin-top: 6px; }
+  .news-card .nsrc a { color: var(--blue); text-decoration: none; }
+
+  .spot-card { background: var(--card); border: 1px solid var(--purple); border-left: 4px solid var(--purple); border-radius: 10px; padding: 13px; margin-bottom: 10px; background: var(--purple-bg); }
+  .spot-head { display: flex; gap: 10px; align-items: baseline; margin-bottom: 5px; }
+  .spot-ticker { font-weight: 800; color: var(--purple); }
+  .spot-co { font-size: 0.78rem; color: var(--muted); }
+
+  .sector-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+  .sector-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px; text-align: center; }
+  .sector-card .sname { font-size: 0.76rem; color: var(--muted); margin-bottom: 4px; }
+  .sector-card .ssig  { font-size: 1.25rem; }
+  .sector-card .sreason { font-size: 0.68rem; color: var(--muted); margin-top: 4px; }
+
+  .tbl-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.79rem; }
+  th { background: var(--surface); color: var(--muted); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.05em; padding: 9px 11px; text-align: left; border-bottom: 2px solid var(--border); cursor: pointer; user-select: none; white-space: nowrap; }
+  th:hover { color: var(--text); }
+  th.asc::after  { content: ' ↑'; opacity: 1; color: var(--gold); }
+  th.desc::after { content: ' ↓'; opacity: 1; color: var(--gold); }
+  th:not(.asc):not(.desc)::after { content: ' ↕'; opacity: 0.3; font-size: 0.62rem; }
+  td { padding: 8px 11px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:hover td { background: var(--surface); }
+  .td-g { color: var(--green); font-weight: 600; }
+  .td-r { color: var(--red);   font-weight: 600; }
+  .td-y { color: var(--gold);  font-weight: 600; }
+
+  .disclaimer { margin: 36px 0 16px; background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--red); border-radius: 8px; padding: 14px 16px; font-size: 0.73rem; color: var(--muted); line-height: 1.7; }
+  .disclaimer strong { color: var(--red); }
+
+  .radar-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 13px; margin-bottom: 10px; border-left: 3px solid var(--orange); }
+
+  @media (max-width: 640px) {
+    .cap-grid, .pred-grid { grid-template-columns: 1fr; }
+    .header h1 { font-size: 1.05rem; }
+    .nav-tab { padding: 6px 10px; font-size: 0.74rem; }
+    .section { padding: 16px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <div>
+      <h1>🇮🇳 Market Briefing + India Intraday — <span class="accent">June 18, 2026</span></h1>
+      <div class="header-meta">Generated: June 18, 2026 | Sources: BSE, NSE, Reuters, Bloomberg, ET, Moneycontrol, CNBC, TheStreet, Business Standard, ScanX, Trendlyne | Market: US closed +1.0% S&amp;P | India closed Sensex +254pts</div>
+      <div class="market-tone">📌 Risk-on rebound: US–Iran MOU signed → oil at $78, semis surge on Apple-Intel chip deal, Fed holds but Warsh signals hawkish shift; India fifth green day led by Defence &amp; Financials with DII buying ₹1,561 Cr.</div>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()">☀️ Light</button>
+  </div>
+  <div class="stats-bar">
+    <div class="stat-chip">🎯 <b>15</b> Intraday Picks</div>
+    <div class="stat-chip">🏢 <b>5</b> Large Cap</div>
+    <div class="stat-chip">📊 <b>5</b> Mid Cap</div>
+    <div class="stat-chip">🌱 <b>5</b> Small Cap</div>
+    <div class="stat-chip">🔄 <b>2</b> Reversals</div>
+    <div class="stat-chip">📉 <b>4</b> Fall Calls</div>
+    <div class="stat-chip">🌐 <b>3</b> Geo Themes Active</div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="showTab('intraday', event)">🎯 India Intraday</button>
+  <button class="nav-tab" onclick="showTab('dealflow', event)">📝 Deal Flow</button>
+  <button class="nav-tab" onclick="showTab('spotlight', event)">🔭 Small Cap</button>
+  <button class="nav-tab" onclick="showTab('global', event)">🌍 Global Picks</button>
+  <button class="nav-tab" onclick="showTab('geopolitical', event)">🌐 Geopolitical</button>
+  <button class="nav-tab" onclick="showTab('usnews', event)">🇺🇸 US News</button>
+  <button class="nav-tab" onclick="showTab('indianews', event)">🇮🇳 India News</button>
+  <button class="nav-tab" onclick="showTab('fundamentals', event)">📋 Fundamentals</button>
+</div>
+
+<!-- ═══ TAB: INDIA INTRADAY ═══ -->
+<div id="tab-intraday" class="section active">
+  <div class="section-title"><span class="emoji">🎯</span> India Intraday Predictions — Cap-Tier View (June 18, 2026)</div>
+  <div class="cap-grid">
+
+    <!-- LARGE CAP -->
+    <div>
+      <div class="cap-col-title">🏢 Large Cap &gt; ₹20,000 Cr</div>
+
+      <!-- HAL -->
+      <div class="pick-card surge">
+        <div class="card-top">
+          <div class="ticker-block">
+            <div class="ticker">HAL</div>
+            <div class="cname">Hindustan Aeronautics Ltd</div>
+          </div>
+          <div class="price-block">
+            <div class="price">₹5,280 <span style="font-size:0.7rem;color:var(--muted)">(est.)</span></div>
+            <div class="chg pos">+1.2% prior session</div>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge b-surge">🚀 &gt;10% Potential</span>
+          <span class="badge b-cap">Large Cap</span>
+          <span class="badge b-catalyst">Govt Defence Spend</span>
+          <span class="badge b-geo">🌐 Geo Beneficiary</span>
+        </div>
+        <div class="clabel">Catalyst</div>
+        <div class="ctext">India set a record defence production figure of ₹1,78,000 crore in FY26 — a 15.6% jump year-over-year — driven by government policy push and rising global export demand. The Nifty India Defence index hit a new all-time high on June 18 (+1% intraday) and is up 33% since April 2026, massively outperforming Nifty 50's 8% gain. Four defence stocks have more than doubled in FY27. HAL is the crown jewel of this rally, a direct primary beneficiary of India's indigenous jet engines, helicopters (LCH, Dhruv), and Tejas procurement pipeline.</div>
+        <div class="clabel">Why Today</div>
+        <div class="ctext">The defence index making a fresh all-time high on a day the broader market closes flat creates breakout momentum specifically in HAL. With global geopolitical risk shifting (Iran deal doesn't reduce India's strategic needs), domestic procurement has its own multi-year arc. Buy the breakout of the defence index.</div>
+        <div class="clabel">Entry Note</div>
+        <div class="ctext">Watch gap-up above ₹5,300. If opens below ₹5,200, wait for 15-min confirmation above that level. Defence index strength is the lead indicator.</div>
+        <div class="clabel">Risk</div>
+        <div class="ctext">US-Iran peace deal may marginally reduce geopolitical premium in some defence names; broad market profit-booking after 5-day rally.</div>
+        <div class="clabel">Source</div>
+        <div class="ctext"><a href="https://www.business-standard.com/markets/news/buzzing-sector-nifty-india-defence-index-hits-new-high-4-stocks-up-over-100-since-april-126061800505_1.html" target="_blank">Business Standard – Defence Index New High, June 18, 2026</a></div>
+        <div class="iss-row">
+          <span class="iss-lbl">ISS:</span>
+          <span class="iss-comp">Catalyst <b>8</b></span>
+          <span class="iss-comp">Social <b>3</b></span>
+          <span class="iss-comp">Momentum <b>4</b></span>
+          <span class="iss-comp">Liquidity <b>4</b></span>
+          <span class="iss-total">= 19/20</span>
+        </div>
+      </div>
+
+      <!-- BEL -->
+      <div class="pick-card gain">
+        <div class="card-top">
+          <div class="ticker-block">
+            <div class="ticker">BEL</div>
+            <div class="cname">Bharat Electronics Ltd</div>
+          </div>
+          <div class="price-block">
+            <div class="price">₹310 <span style="font-size:0.7rem;color:var(--muted)">(est.)</span></div>
+            <div class="chg pos">+0.9% prior session</div>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge b-gain">📈 &gt;5% Gain</span>
+          <span class="badge b-cap">Large Cap</span>
+          <span class="badge b-catalyst">Defence Electronics</span>
+          <span class="badge b-geo">🌐 Geo Beneficiary</span>
+        </div>
+        <div class="clabel">Catalyst</div>
+        <div class="ctext">BEL is India's largest electronics PSU and a direct pipeline for the ₹1,78,000 crore defence production record. BEL supplies radar systems, communication equipment, electronic warfare suites, and sonar systems across all three armed forces. The Nifty Defence index at a new high (+9% in one week) directly lifts BEL, which has surged 43–66% since April 2026 in FY27 alongside GRSE and Data Patterns.</div>
+        <div class="clabel">Why Today</div>
+        <div class="ctext">BEL historically moves 0.8–1.2x the Nifty Defence index on breakout days. With the index hitting a fresh all-time high today, BEL participates strongly. Order inflows from the Indian Air Force radar modernisation program add revenue visibility.</div>
+        <div class="clabel">Entry Note</div>
+        <div class="ctext">Enter near open if Defence index confirms above prior high. Target first resistance at ₹330. Stop below ₹300.</div>
+        <div class="clabel">Risk</div>
+        <div class="ctext">Broad market fatigue after 5-day rally. Iran peace deal reduces risk premium slightly — monitor if defence index fades.</div>
+        <div class="clabel">Source</div>
+        <div class="ctext"><a href="https://www.business-standard.com/markets/news/buzzing-sector-nifty-india-defence-index-hits-new-high-4-stocks-up-over-100-since-april-126061800505_1.html" target="_blank">Business Standard – June 18, 2026</a></div>
+        <div class="iss-row">
+          <span class="iss-lbl">ISS:</span>
+          <span class="iss-comp">Catalyst <b>7</b></span>
+          <span class="iss-comp">Social <b>3</b></span>
+          <span class="iss-comp">Momentum <b>3</b></span>
+          <span class="iss-comp">Liquidity <b>3</b></span>
+          <span class="iss-total">= 16/20</span>
+        </div>
+      </div>
+
+      <!-- INTERGLOBE (IndiGo) -->
+      <div class="pick-card gain">
+        <div class="card-top">
+          <div class="ticker-block">
+            <div class="ticker">INDIGO</div>
+            <div class="cname">InterGlobe Aviation Ltd</div>
+          </div>
+          <div class="price-block">
+            <div class="price">₹4,450 <span style="font-size:0.7rem;color:var(--muted)">(est.)</span></div>
+            <div class="chg pos">Expected positive</div>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge b-gain">📈 &gt;5% Gain</span>
+          <span class="badge b-cap">Large Cap</span>
+          <span class="badge b-catalyst">Oil Price Crash</span>
+          <span class="badge b-geo">🌐 Geo Beneficiary</span>
+        </div>
+        <div class="clabel">Catalyst</div>
+        <div class="ctext">The US–Iran 14-point MOU signed June 17–18 sent Brent crude falling 1.4% to ~$78.41/barrel and WTI to $75.83, continuing a multi-week decline from the $110+ highs seen during peak Iran conflict. Jet fuel is 20–30% of IndiGo's operating costs. Every $10 drop in Brent saves Indian airlines ~₹3,000–5,000 crore annually. The Strait of Hormuz reopening within 30 days adds further structural downside to jet fuel costs through H2 2026.</div>
+        <div class="clabel">Why Today</div>
+        <div class="ctext">Oil fell on the day the report comes out — this is a same-day direct catalyst for aviation. IndiGo has the best fuel efficiency fleet among Indian carriers and is the primary beneficiary. Market hasn't fully priced in a $78 oil environment for aviation yet.</div>
+        <div class="clabel">Entry Note</div>
+        <div class="ctext">Watch if oil continues lower at market open. Buy IndiGo on oil weakness below $80 Brent. Target ₹4,700–4,800 near-term.</div>
+        <div class="clabel">Risk</div>
+        <div class="ctext">Iran ceasefire could break down (was a 60-day extension window, not permanent). Rupee weakness would partially offset oil savings.</div>
+        <div class="clabel">Source</div>
+        <div class="ctext"><a href="https://www.rferl.org/a/iran-war-us-hormuz-oil-blockade-gulf-israel/33640284.html" target="_blank">RFERL – Oil Falls on US-Iran Deal, June 18, 2026</a></div>
+        <div class="iss-row">
+          <span class="iss-lbl">ISS:</span>
+          <span class="iss-comp">Catalyst <b>7</b></span>
+          <span class="iss-comp">Social <b>3</b></span>
+          <span class="iss-comp">Momentum <b>2</b></span>
+          <span class="iss-comp">Liquidity <b>3</b></span>
+          <span class="iss-total">= 15/20</span>
+        </div>
+      </div>
+
+      <!-- HDFCBANK -->
+      <div class="pick-card gain">
+        <div class="card-top">
+          <div class="ticker-block">
+            <div class="ticker">HDFCBANK</div>
+            <div class="cname">HDFC Bank Ltd</div>
+          </div>
+          <div class="price-block">
+            <div class="price">₹1,920 <span style="font-size:0.7rem;color:var(--muted)">(est.)</span></div>
+            <div class="chg pos">Financials lead Sensex</div>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge b-gain">📈 &gt;5% Gain</span>
+          <span class="badge b-cap">Large Cap</span>
+          <span class="badge b-catalyst">Sector Flow + Macro</span>
+        </div>
+        <div class="clabel">Catalyst</div>
+        <div class="ctext">Sensex closed up 254 points for the fifth consecutive session, led specifically by financial and pharma stocks. DII buying was ₹1,561 crore on June 17 (vs FII ₹101 Cr), indicating strong domestic institutional appetite in financials. The US–Iran oil deal reduces imported inflation headwinds for India's macro, directly benefiting bank asset quality and consumption. Lower oil = lower CPI = lower RBI rate pressure = better NIM outlook.</div>
+        <div class="clabel">Why Today</div>
+        <div class="ctext">Financials are the stated leader of today's Sensex rally. HDFCBANK as the index's heaviest weight participates directly. Iran peace deal reduces systemic inflation risk for India, giving RBI room to stay accommodative.</div>
+        <div class="clabel">Entry Note</div>
+        <div class="ctext">Buy on any morning dip. Target ₹1,980 near-term on momentum. Stop below ₹1,860.</div>
+        <div class="clabel">Risk</div>
+        <div class="ctext">Fed's Warsh hawkish turn may pressure emerging market capital flows. Watch USD/INR — rupee weakness vs dollar could bring FII selling.</div>
+        <div class="clabel">Source</div>
+        <div class="ctext"><a href="https://hdfcsky.com/news/stock-market-close-june-18-2026-sensex-nifty-extend-gains-fifth-day-financials-offset-it-weakness" target="_blank">HDFCSky – Market Close June 18, 2026</a></div>
+        <div class="iss-row">
+          <span class="iss-lbl">ISS:</span>
+          <span class="iss-comp">Catalyst <b>6</b></span>
+          <span class="iss-comp">Social <b>2</b></span>
+          <span class="iss-comp">Momentum <b>3</b></span>
+          <span class="iss-comp">Liquidity <b>4</b></span>
+          <span class="iss-total">= 15/20</span>
+        </div>
+      </div>
+
+      <!-- ONGC (FALL) -->
+      <div class="pick-card fall">
+        <div class="card-top">
+          <div class="ticker-block">
+            <div class="ticker">ONGC</div>
+            <div class="cname">Oil &amp; Natural Gas Corp</div>
+          </div>
+          <div class="price-block">
+            <div class="price">₹275 <span style="font-size:0.7rem;color:var(--muted)">(est.)</span></div>
+            <div class="chg neg">Oil down 1.25–1.4%</div>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge b-fall">📉 Likely to Fall</span>
+          <span class="badge b-cap">Large Cap</span>
+          <span class="badge b-catalyst">Oil Price Victim</span>
+          <span class="badge b-geo">🌐 Geo Victim</span>
+        </div>
+        <div class="clabel">Catalyst</div>
+        <div class="ctext">Brent crude at $78.41 (down 1.4%) and WTI at $75.83 (down 1.25%) following the US-Iran MOU. ONGC's realization per barrel tracks crude prices directly — lower oil = immediate revenue and PAT impact. The Strait of Hormuz reopening adds structural supply pressure: the IEA flagged a significant surplus by 2027 as Iran crude re-enters global markets. ONGC is the most direct victim of this geopolitical de-escalation in India.</div>
+        <div class="clabel">Why Today</div>
+        <div class="ctext">Oil fell on the same day as our report — this is a live, same-day catalyst. ONGC will gap-down or trade weak. Every $5 drop in Brent reduces ONGC's annual EBITDA by approximately ₹5,000–7,000 crore.</div>
+        <div class="clabel">Risk Note</div>
+        <div class="ctext">Iran ceasefire may not hold — if it breaks down, oil spikes and ONGC reverses sharply. Government could announce royalty/tax relief (as it did in May 2026 on NDTV report).</div>
+        <div class="clabel">Source</div>
+        <div class="ctext"><a href="https://www.rferl.org/a/iran-war-us-hormuz-oil-blockade-gulf-israel/33640284.html" target="_blank">RFERL – US-Iran Deal Oil Impact, June 18, 2026</a></div>
+        <div class="iss-row">
+          <span class="iss-lbl">ISS:</span>
+          <span class="iss-comp">Catalyst <b>−7</b></span>
+          <span class="iss-comp">Geo <b>−3</b></span>
+          <span class="iss-comp">Momentum <b>−1</b></span>
+          <span class="iss-total" style="color:var(--red)">= Negative (Fall Call)</span>
+        </div>
+      </div>
+    </div><!-- /Large Cap -->
+
+    <!-- MID CAP -->
+    <div>
+      <div class="cap-col-title">📊 Mid Cap ₹5,000–25,000 Cr</div>
+
+      <!-- HFCL -->
+      <div class="pick-card surge">
+        <div class="card-top">
+          <div class="ticker-block">
+            <div class="ticker">HFCL</div>
+            <div class="cname">Himachal Futuristic Communications</div>
+          </div>
+          <div class="price-block">
+            <div class="price">₹196.45</div>
+            <div class="chg pos">+3.29% (upper circuit zone)</div>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge b-surge">🚀 &gt;10% Potential</span>
+          <span class="badge b-cap">Mid Cap</span>
+          <span class="badge b-catalyst">BSE Filing – Order Win</span>
+        </div>
+        <div class="clabel">Catalyst</div>
+        <div class="ctext">HFCL received a contract worth ₹2,666.09 crore from Rail Vikas Nigam Ltd (RVNL) for the BharatNet Phase-III project in Uttar Pradesh (West) Telecom Circle — confirmed via BSE regulatory filing. Scope: supply of telecom equipment + OFC network deployment + 10-year operations &amp; maintenance. This is in addition to a prior ₹2,167.65 crore RVNL contract for BharatNet UP East/West circles (January 2025), making HFCL the dominant BharatNet execution player. Q4 FY26: Net profit ₹178.50 crore (vs loss ₹81.43 crore in Q4 FY25). Net sales +128% YoY to ₹1,824 crore. Total order book: ₹21,206 crore + this new ₹2,666 crore. Stock up 165% in 3 months.</div>
+        <div class="clabel">Why Today</div>
+        <div class="ctext">This is a confirmed BSE exchange filing — the highest-confidence catalyst type for intraday picks. The order is massive (12.6% of prior order book in one shot), involves a named government counterparty (RVNL), and has recurring O&amp;M revenue for 10 years post-implementation. Stock is near its 52-week high of ₹208.98 and hit upper circuit on the news. This is a genuine breakout setup.</div>
+        <div class="clabel">Entry Note</div>
+        <div class="ctext">Stock already in upper circuit zone. If it opens above ₹196, watch for 15-min confirmation then buy. Watch for gap-up opening above ₹200 as key psychological level. Stop below ₹185.</div>
+        <div class="clabel">Risk</div>
+        <div class="ctext">Stock has already run 165% in 3 months — profit booking at 52W high ₹208.98 is real. Large contracts with RVNL have execution risk; government projects can face delays.</div>
+        <div class="clabel">Source</div>
+        <div class="ctext"><a href="https://www.business-standard.com/markets/capital-market-news/hfcl-rises-after-bagging-rs-2-666-cr-bharatnet-phase-iii-contract-from-rvnl-126061800270_1.html" target="_blank">Business Standard – HFCL RVNL Order, June 18, 2026</a></div>
+        <div class="iss-row">
+          <span class="iss-lbl">ISS:</span>
+          <span class="iss-comp">Catalyst <b>10</b></span>
+          <span class="iss-comp">Social <b>3</b></span>
+          <span class="iss-comp">Momentum <b>3</b></span>
+          <span class="iss-comp">Liquidity <b>3</b></span>
+          <span class="iss-total">= 19/20</span>
+        </div>
+      </div>
+
+      <!-- NYKAA -->
+      <div class="pick-card gain">
+        <div class="card-top">
+          <div class="ticker-block">
+            <div class="ticker">NYKAA</div>
+            <div class="cname">FSN E-Commerce Ventures Ltd</div>
+          </div>
+          <div class="price-block">
+            <div class="price">₹298.00</div>
+            <div class="chg pos">+6.1% (+₹17.05)</div>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge b-gain">📈 &gt;5% Gain</span>
+          <span class="badge b-cap">Mid Cap</span>
+          <span class="badge b-catalyst">AI Partnership</span>
+        </div>
+        <div class="clabel">Catalyst</div>
+        <div class="ctext">Nykaa announced a partnership with OpenAI (maker of ChatGPT) on June 18, 2026 — confirmed per ScanX/Zerodha Pulse. The nature of the partnership (AI-powered beauty and fashion recommendations, personalized shopping, conversational commerce) aligns Nykaa with the most prominent AI brand globally. Coming on the same day as SpaceX + Intel-Apple making AI/tech the dominant US market theme, this creates investor enthusiasm for AI-connected Indian e-commerce plays.</div>
+        <div class="clabel">Why Today</div>
+        <div class="ctext">AI partnerships are driving 10–30% same-day moves in Indian stocks when they involve marquee names like OpenAI, Google, or Microsoft. Nykaa's partnership is confirmed (per ScanX). Combined with the stock already up 6.1% on the news, momentum is strong intraday.</div>
+        <div class="clabel">Entry Note</div>
+        <div class="ctext">Stock already moved 6.1% — enter only on a pullback to ₹285–288 for a risk-reward of ₹305–315 target. If it continues above ₹300, wait for 30-min consolidation before adding.</div>
+        <div class="clabel">Risk</div>
+        <div class="ctext">Partnership details not fully disclosed — if it's a soft MoU rather than a revenue-generating deal, stock may fade. Nykaa's fundamentals have been under scrutiny on profitability.</div>
+        <div class="clabel">Source</div>
+        <div class="ctext"><a href="https://scanx.trade/stock-market-news/orders-deals" target="_blank">ScanX – Nykaa Partners With OpenAI, June 18, 2026</a></div>
+        <div class="iss-row">
+          <span class="iss-lbl">ISS:</span>
+          <span class="iss-comp">Catalyst <b>7</b></span>
+          <span class="iss-comp">Social <b>4</b></span>
+          <span class="iss-comp">Momentum <b>2</b></span>
+          <span class="iss-comp">Liquidity <b>3</b></span>
+          <span class="iss-total">= 16/20</span>
+        </div>
+      </div>
+
+      <!-- KPRMILL -->
+      <div class="pick-card gain">
+        <div class="card-top">
+          <div class="ticker-block">
+            <div class="ticker">KPRMILL</div>
+            <div class="cname">K.P.R. Mill Ltd</div>
+          </div>
+          <div class="price-block">
+            <div class="price">₹1,184.90</div>
+            <div class="chg pos">+13.6% (+₹141.65)</div>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge b-gain">📈 &gt;5% Gain</span>
+          <span class="badge b-cap">Mid Cap</span>
+          <span class="badge b-catalyst">Institutional Meetings</span>
+        </div>
+        <div class="clabel">Catalyst</div>
+        <div class="ctext">KPR Mill is conducting a series of virtual meetings with institutional investors and analysts from June 15 to June 19, 2026 (confirmed BSE filing under Regulation 30(6) SEBI LODR). While no unpublished price-sensitive information is being shared, such investor roadshows historically precede positive stock re-rating. KPR Mill is India's largest vertically integrated apparel manufacturer with a growing ethanol and sugar business. It's already up 13.6% on June 18, reflecting strong institutional interest.</div>
+        <div class="clabel">Why Today</div>
+        <div class="ctext">A 13.6% single-day move on institutional roadshow activity signals large-scale re-rating interest. US-Iran peace deal is positive for Indian textile exporters (better EM trade flows, stable ocean freight as Red Sea disruption eases). The stock's 1-day volume surge confirms institutional buying.</div>
+        <div class="clabel">Entry Note</div>
+        <div class="ctext">Already up 13.6% — do NOT chase at current levels. Watch for consolidation around ₹1,150–1,160 to re-enter. Momentum can extend further if volumes remain elevated through the day.</div>
+        <div class="clabel">Risk</div>
+        <div class="ctext">Stock may have front-run the news (meetings are non-UPSI). High valuation; profit-booking post 13.6% move is likely. Lower conviction entry than HFCL.</div>
+        <div class="clabel">Source</div>
+        <div class="ctext"><a href="https://scanx.trade/stock-market-news/companies/kpr-mill-schedules-analyst-and-investor-meets-in-june-2026/42204962" target="_blank">ScanX – KPR Mill Analyst Meets June 2026</a></div>
+        <div class="iss-row">
+          <span class="iss-lbl">ISS:</span>
+          <span class="iss-comp">Catalyst <b>6</b></span>
+          <span class="iss-comp">Social <b>3</b></span>
+          <span class="iss-comp">Momentum <b>3</b></span>
+          <span class="iss-comp">Liquidity <b>2</b></span>
+          <span class="iss-total">= 14/20</span>
+        </div>
+      </div>
+
+      <!-- INOXWIND (REVERSAL) -->
+      <div class="pick-card gain">
+        <div class="card-top">
+          <div class="ticker-block">
+            <div class="ticker">INOXWIND</div>
+            <div class="cname">Inox Wind Ltd 🔄</div>
+          </div>
+          <div class="price-block">
+            <div class="price">₹84 <span style="font-size:0.7rem;color:var(--muted)">(est.)</span></div>
+            <div class="chg neg">−8.5% post weak Q4</div>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge b-gain">📈 &gt;5% Gain</span>
+          <span class="badge b-cap">Mid Cap</span>
+          <span class="badge b-catalyst">1,500 MW MoU</span>
+          <span class="badge b-reversal">🔄 Reversal Candidate</span>
+        </div>
+        <div class="clabel">Catalyst</div>
+        <div class="ctext">Inox Wind signed a Memorandum of Understanding with Inox Clean Energy to supply 1,500 MW of wind turbines — confirmed via ScanX exchange announcement June 18, 2026. This expands Inox Wind's total order book to 4.5 GW, ensuring multi-year revenue visibility in a sector driven by India's aggressive 500 GW renewables target by 2030. Prior: Stock fell 8.5% on weak Q4 FY26 results (PAT down 44.4% YoY to ₹105.7 crore on lower order inflows).</div>
+        <div class="clabel">Why Today</div>
+        <div class="ctext">Classic reversal setup: stock beaten down on weak Q4 (fundamentals) but now receives a 1,500 MW same-day MoU that directly addresses the "order inflow" concern that drove the prior fall. A prior-downtrend stock with a fresh confirmed catalyst is the highest-conviction intraday reversal play. Oil falling further supports wind energy's competitive positioning vs fossil fuels.</div>
+        <div class="clabel">Entry Note</div>
+        <div class="ctext">Watch gap-up above ₹86. If opens below prior close, look for 15-min bounce confirmation. Target ₹92–95. This is a reversal candidate — monitor exit promptly; don't hold overnight without a renewed catalyst.</div>
+        <div class="clabel">Risk</div>
+        <div class="ctext">MoU is with Inox Clean (a group company) — intra-group deals sometimes receive sceptical market reaction. Q4 results were genuinely weak; bear case remains if MoU doesn't convert to firm orders. Moderate liquidity.</div>
+        <div class="clabel">Source</div>
+        <div class="ctext"><a href="https://scanx.trade/stock-market-news/orders-deals" target="_blank">ScanX – Inox Wind MoU with Inox Clean, June 18, 2026</a></div>
+        <div class="iss-row">
+          <span class="iss-lbl">ISS:</span>
+          <span class="iss-comp">Catalyst <b>6</b></span>
+          <span class="iss-comp">Social <b>2</b></span>
+          <span class="iss-comp">Momentum <b>1</b></span>
+          <span class="iss-comp">Liquidity <b>2</b></span>
+          <span class="iss-total">= 11/20 (Reversal)</span>
+        </div>
+      </div>
+
+      <!-- BPCL (FALL) -->
+      <div class="pick-card fall">
+        <div class="card-top">
+          <div class="ticker-block">
+            <div class="ticker">BPCL</div>
+            <div class="cname">Bharat Petroleum Corp Ltd</div>
+          </div>
+          <div class="price-block">
+            <div class="price">₹320 <span style="font-size:0.7rem;color:var(--muted)">(est.)</span></div>
+            <div class="chg neg">Oil falls on Iran deal</div>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge b-fall">📉 Likely to Fall</span>
+          <span class="badge b-cap">Mid Cap</span>
+          <span class="badge b-catalyst">OMC Margin Squeeze</span>
+          <span class="badge b-geo">🌐 Geo Victim</span>
+        </div>
+        <div class="clabel">Catalyst</div>
+        <div class="ctext">Oil marketing companies (OMCs) like BPCL face a counter-intuitive pressure when crude falls sharply: they have inventory built at higher prices. The Iran peace deal drives both lower international crude AND reopens Iranian oil supply — creating a two-sided pressure on marketing margins in the near term. The IEA expects oil market to move into significant surplus by 2027 on Hormuz reopening. BPCL's refining margins compress when crude falls faster than product prices adjust.</div>
+        <div class="clabel">Why Today</div>
+        <div class="ctext">Oil is a live same-day catalyst. BPCL, like all OMCs, will see their "under-recovery" or marketing spread disrupted today. While lower crude eventually helps India, the short-term inventory loss impact is negative for BPCL's stock.</div>
+        <div class="clabel">Risk Note</div>
+        <div class="ctext">Government could announce fuel price cuts with lower oil — making BPCL volumes attractive. Watch for any retail fuel price announcement that could reverse this call.</div>
+        <div class="clabel">Source</div>
+        <div class="ctext"><a href="https://discoveryalert.com.au/us-iran-deal-oil-prices-hormuz-inflation-2026/" target="_blank">Discovery Alert – US-Iran Deal Oil Analysis, June 18, 2026</a></div>
+        <div class="iss-row">
+          <span class="iss-lbl">ISS:</span>
+          <span class="iss-comp">Catalyst <b>−6</b></span>
+          <span class="iss-comp">Geo <b>−2</b></span>
+          <span class="iss-total" style="color:var(--red)">= Negative (Fall Call)</span>
+        </div>
+      </div>
+    </div><!-- /Mid Cap -->
+
+    <!-- SMALL CAP -->
+    <div>
+      <div class="cap-col-title">🌱 Small Cap &lt; ₹5,000 Cr</div>
+
+      <!-- MANINDS -->
+      <div class="pick-card surge">
+        <div class="card-top">
+          <div class="ticker-block">
+            <div class="ticker">MANINDS</div>
+            <div class="cname">Man Industries (India) Ltd</div>
+          </div>
+          <div class="price-block">
+            <div class="price">₹546 <span style="font-size:0.7rem;color:var(--muted)">(14-Jun ref.)</span></div>
+            <div class="chg pos">Order wins announced today</div>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge b-surge">🚀 &gt;10% Potential</span>
+          <span class="badge b-cap">Small Cap</span>
+          <span class="badge b-catalyst">Order Win ~₹1,000 Cr</span>
+        </div>
+        <div class="clabel">Catalyst</div>
+        <div class="ctext">Man Industries announced receipt of approximately ₹1,000 crore worth of pipe supply orders from both global and domestic clients — confirmed via Trendlyne on June 18, 2026. Man Industries is India's largest large-diameter carbon steel pipe manufacturer (LSAW, HSAW pipes), supplying oil &amp; gas, petrochemicals, potable water sectors globally. CRISIL upgraded its long-term rating to A+/Stable on June 1, 2026. Its subsidiary MISIC acquired Saudi Arabia's National Pipe Company for $102M in May 2026, adding 430,000 MT Middle East capacity — directly positioned to capture Iran reconstruction oil/gas pipeline demand as Hormuz reopens.</div>
+        <div class="clabel">Why Today</div>
+        <div class="ctext">This is a multi-catalyst day for Man Industries: ₹1,000 Cr order wins confirmed + US-Iran peace deal opens Middle East infrastructure spending + CRISIL upgrade + Saudi JV positioned for Iran reconstruction ($300B financing package per the MOU). This stock has every reason to move today.</div>
+        <div class="clabel">Entry Note</div>
+        <div class="ctext">Watch gap-up open above ₹560. Stop below ₹520. Target ₹610–630 near-term (previous 52W high ₹606.4). Tight liquidity — be cautious on size.</div>
+        <div class="clabel">Risk</div>
+        <div class="ctext">Lower liquidity = wider spreads and potential upper circuit trapping. Iran peace deal needs to translate to actual Middle East capex (months, not days). Pipe orders were from unnamed domestic/international clients.</div>
+        <div class="clabel">Source</div>
+        <div class="ctext"><a href="https://trendlyne.com/markets-today/" target="_blank">Trendlyne – Man Industries Order Win, June 18, 2026</a></div>
+        <div class="iss-row">
+          <span class="iss-lbl">ISS:</span>
+          <span class="iss-comp">Catalyst <b>8</b></span>
+          <span class="iss-comp">Social <b>2</b></span>
+          <span class="iss-comp">Momentum <b>3</b></span>
+          <span class="iss-comp">Liquidity <b>2</b></span>
+          <span class="iss-total">= 15/20</span>
+        </div>
+      </div>
+
+      <!-- WELSPUNLIV -->
+      <div class="pick-card gain">
+        <div class="card-top">
+          <div class="ticker-block">
+            <div class="ticker">WELSPUNLIV</div>
+            <div class="cname">Welspun Living Ltd</div>
+          </div>
+          <div class="price-block">
+            <div class="price">₹161.87</div>
+            <div class="chg pos">+10.4% (+₹15.22)</div>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge b-gain">📈 &gt;5% Gain</span>
+          <span class="badge b-cap">Small Cap</span>
+          <span class="badge b-catalyst">Textile Exports / Geo</span>
+        </div>
+        <div class="clabel">Catalyst</div>
+        <div class="ctext">Welspun Living (textiles, home products — bedsheets, towels) is surging 10.4% on June 18. The US-Iran peace deal removes Red Sea shipping disruption risk, significantly cutting freight costs for textile exporters. Welspun Living exports to the US, UK, and Europe. Lower freight rates + lower cotton input costs (cotton prices sensitive to energy costs) = margin expansion. Additionally, India-US trade relations improving under the current geopolitical environment creates a favourable backdrop.</div>
+        <div class="clabel">Why Today</div>
+        <div class="ctext">Stock is breaking out with volume surge — the 10.4% move itself is the signal. Textile exporters are a direct beneficiary class of the Iran peace deal (Red Sea + Hormuz shipping routes). Momentum is confirmed by volume.</div>
+        <div class="clabel">Entry Note</div>
+        <div class="ctext">Already up 10.4% — enter on intraday dips to ₹155–158 for continuation above ₹165+. Stop at ₹148 (2-week support).</div>
+        <div class="clabel">Risk</div>
+        <div class="ctext">Textile sector is cyclical. Freight rate normalisation takes weeks/months. Large single-day move increases risk of mean-reversion.</div>
+        <div class="clabel">Source</div>
+        <div class="ctext"><a href="https://web.stockedge.com/trending-stocks" target="_blank">StockEdge – Trending Stocks June 18, 2026</a></div>
+        <div class="iss-row">
+          <span class="iss-lbl">ISS:</span>
+          <span class="iss-comp">Catalyst <b>7</b></span>
+          <span class="iss-comp">Social <b>3</b></span>
+          <span class="iss-comp">Momentum <b>3</b></span>
+          <span class="iss-comp">Liquidity <b>2</b></span>
+          <span class="iss-total">= 15/20</span>
+        </div>
+      </div>
+
+      <!-- BATAINDIA REVERSAL -->
+      <div class="pick-card gain">
+        <div class="card-top">
+          <div class="ticker-block">
+            <div class="ticker">BATAINDIA</div>
+            <div class="cname">Bata India Ltd 🔄</div>
+          </div>
+          <div class="price-block">
+            <div class="price">₹789.90</div>
+            <div class="chg pos">+16.42% (+₹111.40)</div>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge b-gain">📈 &gt;5% Gain</span>
+          <span class="badge b-cap">Small/Mid Cap</span>
+          <span class="badge b-catalyst">Technical Breakout</span>
+          <span class="badge b-reversal">🔄 Reversal Candidate</span>
+        </div>
+        <div class="clabel">Catalyst</div>
+        <div class="ctext">Bata India surged 16.42% on June 18, 2026 — from ₹678.50 to ₹789.90, on 12 million shares traded (a volume surge). The stock was at 52-week low territory (₹676) as recently as today's open, and is in a 20% gain over the past 2 weeks. StockInvest reports both short and long-term moving averages giving buy signals, with the stock breaking out of a wide horizontal trend. Volume is rising with price — a positive technical sign. Bata India is also announcing a dividend of ₹9 per share (ex-date July 31, 2026).</div>
+        <div class="clabel">Why Today</div>
+        <div class="ctext">Strong reversal setup: stock had a 33% loss over 3 prior years, was trading near 52W low in March 2026. This 16.4% breakout on record volume signals a genuine institutional accumulation event. Upcoming dividend and EPS growth forecast of 75% over 3 years (Simply Wall St) add fundamental backing to the technical reversal.</div>
+        <div class="clabel">Entry Note</div>
+        <div class="ctext">Stock already moved 16.4% — do NOT chase at the day's high. Wait for a pullback to ₹760–770 zone before entering. Target ₹820–850 continuation if broader market holds. Stop at ₹740.</div>
+        <div class="clabel">Risk</div>
+        <div class="ctext">No single named catalyst confirmed on BSE filings today — this is a technical/momentum pick. Low conviction compared to HFCL or MANINDS. Large single-day move may attract profit booking tomorrow.</div>
+        <div class="clabel">Source</div>
+        <div class="ctext"><a href="https://stockinvest.us/stock/BATAINDIA.NS" target="_blank">StockInvest – Bata India Technical Analysis, June 18, 2026</a></div>
+        <div class="iss-row">
+          <span class="iss-lbl">ISS:</span>
+          <span class="iss-comp">Catalyst <b>5</b></span>
+          <span class="iss-comp">Social <b>3</b></span>
+          <span class="iss-comp">Momentum <b>4</b></span>
+          <span class="iss-comp">Liquidity <b>3</b></span>
+          <span class="iss-total">= 15/20 (Reversal)</span>
+        </div>
+      </div>
+
+      <!-- FIVESTAR Business Finance -->
+      <div class="pick-card gain">
+        <div class="card-top">
+          <div class="ticker-block">
+            <div class="ticker">FIVESTAR</div>
+            <div class="cname">Five-Star Business Finance Ltd</div>
+          </div>
+          <div class="price-block">
+            <div class="price">₹517.80</div>
+            <div class="chg pos">+6.6% (+₹32.25)</div>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge b-gain">📈 &gt;5% Gain</span>
+          <span class="badge b-cap">Small Cap</span>
+          <span class="badge b-catalyst">NBFC Sector Flow</span>
+        </div>
+        <div class="clabel">Catalyst</div>
+        <div class="ctext">Five-Star Business Finance is up 6.6% on June 18 — one of the strongest gainers in the finance category on NSE/BSE (per StockEdge data). The financial sector is explicitly cited as the leader of the Sensex's fifth consecutive gain. Five-Star is a high-yield secured NBFC focusing on SME lending in semi-urban/rural India. As the broader financial sector receives DII inflows (₹1,561 crore on June 17 was predominantly in banks and NBFCs), high-quality NBFCs with strong NIMs get re-rated first.</div>
+        <div class="clabel">Why Today</div>
+        <div class="ctext">Financial sector leading Sensex + DII inflow days = smaller financials get caught in the updraft. Five-Star has strong unit economics and has been a quality compounder; a 6.6% move suggests institutional interest returning after prior weakness.</div>
+        <div class="clabel">Entry Note</div>
+        <div class="ctext">Entry only on dips to ₹505–510 for risk-reward. Lower conviction compared to order-win picks. Target ₹540–550 momentum continuation.</div>
+        <div class="clabel">Risk</div>
+        <div class="ctext">Sector-driven move with no stock-specific catalyst — can reverse quickly if broader financial flows slow. Lower liquidity in small NBFCs.</div>
+        <div class="clabel">Source</div>
+        <div class="ctext"><a href="https://web.stockedge.com/trending-stocks" target="_blank">StockEdge – NSE/BSE Gainers June 18, 2026</a></div>
+        <div class="iss-row">
+          <span class="iss-lbl">ISS:</span>
+          <span class="iss-comp">Catalyst <b>5</b></span>
+          <span class="iss-comp">Social <b>2</b></span>
+          <span class="iss-comp">Momentum <b>3</b></span>
+          <span class="iss-comp">Liquidity <b>2</b></span>
+          <span class="iss-total">= 12/20 (Lower Conviction – Monitor Entry)</span>
+        </div>
+      </div>
+
+      <!-- CORONARE (FALL – Block Deal) -->
+      <div class="pick-card fall">
+        <div class="card-top">
+          <div class="ticker-block">
+            <div class="ticker">CORONARE</div>
+            <div class="cname">Corona Remedies Ltd</div>
+          </div>
+          <div class="price-block">
+            <div class="price">See Block Price</div>
+            <div class="chg neg">43.3L shares sold today</div>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge b-fall">📉 Likely to Fall</span>
+          <span class="badge b-cap">Small Cap</span>
+          <span class="badge b-catalyst">Institutional Block Deal Exit</span>
+        </div>
+        <div class="clabel">Catalyst</div>
+        <div class="ctext">Sepia Investments sold 43.3 lakh shares of Corona Remedies for ₹748.7 crore through a block deal on June 18, 2026 — confirmed via Trendlyne. This is a large institutional exit via block deal, a classic negative signal for short-term price action. Block deals often create an overhang: the buyer in a block deal typically pays a slight premium, but the market subsequently prices in supply pressure from the seller's remaining holdings or similar investors following suit.</div>
+        <div class="clabel">Why Today</div>
+        <div class="ctext">A ₹748.7 crore block deal exit (large for a small-cap company) creates immediate supply in the market. The seller (Sepia) is clearing position at current prices — a signal that the institutional buyer sees limited near-term upside. Intraday sell pressure likely as the block finds its footing.</div>
+        <div class="clabel">Risk Note</div>
+        <div class="ctext">If the block deal buyer accumulates aggressively in open market after deal, stock can reverse upward. Block deals sometimes bring in strategic buyers who support prices. Verify counterparty before taking this call.</div>
+        <div class="clabel">Source</div>
+        <div class="ctext"><a href="https://trendlyne.com/markets-today/" target="_blank">Trendlyne – Corona Remedies Block Deal, June 18, 2026</a></div>
+        <div class="iss-row">
+          <span class="iss-lbl">ISS:</span>
+          <span class="iss-comp">Catalyst <b>−6</b></span>
+          <span class="iss-comp">Social <b>−1</b></span>
+          <span class="iss-total" style="color:var(--red)">= Negative (Fall Call)</span>
+        </div>
+      </div>
+    </div><!-- /Small Cap -->
+
+  </div><!-- /cap-grid -->
+
+  <!-- SECTOR PULSE -->
+  <div class="section-title"><span class="emoji">⚡</span> Sector Pulse Today</div>
+  <div class="sector-grid">
+    <div class="sector-card">
+      <div class="sname">Defence</div>
+      <div class="ssig">🟢</div>
+      <div class="sreason">Nifty Defence at new ATH; ₹1.78L Cr production record FY26</div>
+    </div>
+    <div class="sector-card">
+      <div class="sname">Financials / NBFC</div>
+      <div class="ssig">🟢</div>
+      <div class="sreason">Leading Sensex 5-day rally; DII buying ₹1,561 Cr</div>
+    </div>
+    <div class="sector-card">
+      <div class="sname">Aviation</div>
+      <div class="ssig">🟢</div>
+      <div class="sreason">Oil at $78 (Iran deal); jet fuel cost relief</div>
+    </div>
+    <div class="sector-card">
+      <div class="sname">Textiles</div>
+      <div class="ssig">🟢</div>
+      <div class="sreason">Red Sea disruption easing; freight costs falling</div>
+    </div>
+    <div class="sector-card">
+      <div class="sname">Telecom Infra</div>
+      <div class="ssig">🟢</div>
+      <div class="sreason">HFCL ₹2,666 Cr BharatNet order; 5G/BharatNet momentum</div>
+    </div>
+    <div class="sector-card">
+      <div class="sname">IT / Tech</div>
+      <div class="ssig">🔴</div>
+      <div class="sreason">IT weakness offset financial gains; Accenture -18% US; IT discretionary budgets slow</div>
+    </div>
+    <div class="sector-card">
+      <div class="sname">Oil &amp; Gas</div>
+      <div class="ssig">🔴</div>
+      <div class="sreason">Brent $78 on Iran MOU; ONGC, OIL, BPCL under pressure</div>
+    </div>
+    <div class="sector-card">
+      <div class="sname">Power / Renewables</div>
+      <div class="ssig">🟡</div>
+      <div class="sreason">Inox Wind 1,500 MW MoU; but lower oil reduces urgency narrative</div>
+    </div>
+    <div class="sector-card">
+      <div class="sname">Pharma</div>
+      <div class="ssig">🟢</div>
+      <div class="sreason">Max Healthcare +6.4%; sector gaining on 5th day of Sensex rally</div>
+    </div>
+    <div class="sector-card">
+      <div class="sname">Real Estate</div>
+      <div class="ssig">🟡</div>
+      <div class="sreason">Neutral; US XLRE fell 2.5% on Fed hawkishness — watch spillover</div>
+    </div>
+    <div class="sector-card">
+      <div class="sname">Chemicals</div>
+      <div class="ssig">🟢</div>
+      <div class="sreason">Lower crude = lower feedstock costs for specialty chemicals</div>
+    </div>
+    <div class="sector-card">
+      <div class="sname">Banking</div>
+      <div class="ssig">🟢</div>
+      <div class="sreason">Yes Bank at 52W high; Northern Arc partnership; DII inflows</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TAB: DEAL FLOW ═══ -->
+<div id="tab-dealflow" class="section">
+  <div class="section-title"><span class="emoji">📝</span> All India Deals &amp; Catalysts Today — June 18, 2026</div>
+  <div class="tbl-wrap">
+    <table id="dealTable">
+      <thead><tr>
+        <th onclick="sortTable('dealTable',0)">Time</th>
+        <th onclick="sortTable('dealTable',1)">Company</th>
+        <th onclick="sortTable('dealTable',2)">Ticker</th>
+        <th onclick="sortTable('dealTable',3)">Catalyst Type</th>
+        <th onclick="sortTable('dealTable',4)">Size (₹ Cr)</th>
+        <th onclick="sortTable('dealTable',5)">Counterparty</th>
+        <th onclick="sortTable('dealTable',6)">Confirmed?</th>
+        <th onclick="sortTable('dealTable',7)">ISS</th>
+        <th onclick="sortTable('dealTable',8)">Cap Tier</th>
+        <th onclick="sortTable('dealTable',9)">Source</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td>Pre-open</td>
+          <td>HFCL Ltd</td>
+          <td class="td-y">HFCL</td>
+          <td>Order Win – BharatNet Phase III</td>
+          <td class="td-g">2,666</td>
+          <td>RVNL (Govt)</td>
+          <td class="td-g">✅ BSE Filing</td>
+          <td class="td-g">19</td>
+          <td>Mid</td>
+          <td><a href="https://www.business-standard.com/markets/capital-market-news/hfcl-rises-after-bagging-rs-2-666-cr-bharatnet-phase-iii-contract-from-rvnl-126061800270_1.html" target="_blank" style="color:var(--blue)">Business Std</a></td>
+        </tr>
+        <tr>
+          <td>06:00</td>
+          <td>Man Industries (India)</td>
+          <td class="td-y">MANINDS</td>
+          <td>Order Win – Pipe Supply</td>
+          <td class="td-g">~1,000</td>
+          <td>Global/Domestic clients</td>
+          <td class="td-g">✅ Trendlyne</td>
+          <td class="td-g">15</td>
+          <td>Small</td>
+          <td><a href="https://trendlyne.com/markets-today/" target="_blank" style="color:var(--blue)">Trendlyne</a></td>
+        </tr>
+        <tr>
+          <td>06:00</td>
+          <td>Inox Wind Ltd</td>
+          <td class="td-y">INOXWIND</td>
+          <td>MoU – 1,500 MW Turbine Supply</td>
+          <td class="td-g">~9,000+</td>
+          <td>Inox Clean Energy</td>
+          <td class="td-g">✅ Exchange Filing</td>
+          <td class="td-g">11</td>
+          <td>Mid</td>
+          <td><a href="https://scanx.trade/stock-market-news/orders-deals" target="_blank" style="color:var(--blue)">ScanX</a></td>
+        </tr>
+        <tr>
+          <td>07:00</td>
+          <td>Nykaa (FSN E-Commerce)</td>
+          <td class="td-y">NYKAA</td>
+          <td>AI Partnership</td>
+          <td>N/A</td>
+          <td>OpenAI (ChatGPT)</td>
+          <td class="td-y">✅ ScanX/Pulse</td>
+          <td class="td-g">16</td>
+          <td>Mid</td>
+          <td><a href="https://pulse.zerodha.com/" target="_blank" style="color:var(--blue)">Zerodha Pulse</a></td>
+        </tr>
+        <tr>
+          <td>07:30</td>
+          <td>TCS</td>
+          <td class="td-y">TCS</td>
+          <td>Digital Transformation Deal</td>
+          <td>Undisclosed</td>
+          <td>Tottenham Hotspur FC</td>
+          <td class="td-g">✅ ScanX</td>
+          <td>10</td>
+          <td>Large</td>
+          <td><a href="https://scanx.trade/stock-market-news/orders-deals" target="_blank" style="color:var(--blue)">ScanX</a></td>
+        </tr>
+        <tr>
+          <td>08:00</td>
+          <td>Dixon Technologies</td>
+          <td class="td-y">DIXON</td>
+          <td>JV Formation – Optical Transceiver</td>
+          <td>N/A</td>
+          <td>Gemtek (Taiwan)</td>
+          <td class="td-g">✅ ScanX</td>
+          <td>12</td>
+          <td>Large</td>
+          <td><a href="https://scanx.trade/stock-market-news/orders-deals" target="_blank" style="color:var(--blue)">ScanX</a></td>
+        </tr>
+        <tr>
+          <td>08:30</td>
+          <td>Corona Remedies</td>
+          <td class="td-r">CORONARE</td>
+          <td>Block Deal – Institutional Exit</td>
+          <td class="td-r">748.7</td>
+          <td>Sepia Investments (Seller)</td>
+          <td class="td-g">✅ Trendlyne</td>
+          <td class="td-r">Negative</td>
+          <td>Small</td>
+          <td><a href="https://trendlyne.com/markets-today/" target="_blank" style="color:var(--blue)">Trendlyne</a></td>
+        </tr>
+        <tr>
+          <td>09:00</td>
+          <td>Infosys</td>
+          <td class="td-y">INFY</td>
+          <td>Partnership – IT Operations AI</td>
+          <td>N/A</td>
+          <td>Valmet (Industrial)</td>
+          <td class="td-g">✅ ScanX</td>
+          <td>9</td>
+          <td>Large</td>
+          <td><a href="https://scanx.trade/stock-market-news/orders-deals" target="_blank" style="color:var(--blue)">ScanX</a></td>
+        </tr>
+        <tr>
+          <td>09:30</td>
+          <td>Oil India Ltd</td>
+          <td class="td-y">OIL</td>
+          <td>MoU – R&amp;D Collaboration</td>
+          <td>N/A</td>
+          <td>CSIR (Govt)</td>
+          <td class="td-g">✅ ScanX</td>
+          <td>7</td>
+          <td>Large</td>
+          <td><a href="https://scanx.trade/stock-market-news/orders-deals" target="_blank" style="color:var(--blue)">ScanX</a></td>
+        </tr>
+        <tr>
+          <td>09:45</td>
+          <td>Bosch Home Comfort</td>
+          <td class="td-y">BOSCHLTD</td>
+          <td>Promoter Sale – OFS 7.2% stake</td>
+          <td>N/A</td>
+          <td>Bosch Global Software Tech</td>
+          <td class="td-y">⚠️ Confirmed</td>
+          <td class="td-r">Negative</td>
+          <td>Large</td>
+          <td><a href="https://trendlyne.com/markets-today/" target="_blank" style="color:var(--blue)">Trendlyne</a></td>
+        </tr>
+        <tr>
+          <td>10:00</td>
+          <td>HCL Technologies</td>
+          <td class="td-y">HCLTECH</td>
+          <td>Industry Award</td>
+          <td>N/A</td>
+          <td>HPE (Partner of Year 2026)</td>
+          <td class="td-g">✅ ScanX</td>
+          <td>8</td>
+          <td>Large</td>
+          <td><a href="https://scanx.trade/stock-market-news/orders-deals" target="_blank" style="color:var(--blue)">ScanX</a></td>
+        </tr>
+        <tr>
+          <td>Pre-mkt</td>
+          <td>Meesho</td>
+          <td class="td-y">MEESHO</td>
+          <td>Block Trade</td>
+          <td>168.5 × 24.2M</td>
+          <td>Market (3 blocks)</td>
+          <td class="td-g">✅ ScanX</td>
+          <td>8</td>
+          <td>Mid</td>
+          <td><a href="https://scanx.trade/stock-market-news/orders-deals" target="_blank" style="color:var(--blue)">ScanX</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ TAB: SMALL CAP SPOTLIGHT ═══ -->
+<div id="tab-spotlight" class="section">
+  <div class="section-title"><span class="emoji">🔭</span> Small Cap Spotlight — Investment &amp; Catalyst Activity (Last 7 Days)</div>
+
+  <div class="spot-card">
+    <div class="spot-head"><span class="spot-ticker">MANINDS</span><span class="spot-co">Man Industries (India) Ltd</span></div>
+    <div class="ctext"><b>Investor/Catalyst:</b> CRISIL rating upgraded to A+/Stable (June 1, 2026). Subsidiary MISIC acquired Saudi Arabia's National Pipe Company for $102M (₹1,000 Cr+) in May — strategic Middle East positioning. Today's ~₹1,000 Cr pipe order win is the latest in a string of catalysts. CRISIL upgrade signals improved credit quality and access to lower-cost debt. <br><b>Amount:</b> $102M Saudi acquisition + ~₹1,000 Cr orders today. <b>Why it might move:</b> US-Iran peace = Middle East energy infrastructure rebuild = massive pipeline (literal) opportunity for Man Industries. <a href="https://www.screener.in/company/MANINDS/consolidated/" target="_blank" style="color:var(--blue)">Screener.in Filing</a></div>
+  </div>
+
+  <div class="spot-card">
+    <div class="spot-head"><span class="spot-ticker">BATAINDIA</span><span class="spot-co">Bata India Ltd</span></div>
+    <div class="ctext"><b>Investor/Catalyst:</b> Dividend announcement ₹9/share (ex-date July 31, 2026). Technical breakout from 3-year downtrend; 20.13% gain over 2 weeks. Volume surged 12M shares on June 18 (vs normal ~1-2M daily). Analyst consensus target upgraded post-prior-week 15% move. <br><b>Why it might move:</b> Dividend announcement + institutional re-accumulation after 33% 3-year loss = mean-reversion trade with fundamental backing. EPS projected to grow 75% over next 3 years. <a href="https://simplywall.st/stocks/in/consumer-durables/nse-bataindia/bata-india-shares/future" target="_blank" style="color:var(--blue)">Simply Wall St</a></div>
+  </div>
+
+  <div class="spot-card">
+    <div class="spot-head"><span class="spot-ticker">INOXWIND</span><span class="spot-co">Inox Wind Ltd</span></div>
+    <div class="ctext"><b>Investor/Catalyst:</b> 1,500 MW MoU with Inox Clean Energy today. Order book expands to 4.5 GW. Prior: Motilal Oswal issued Buy report at CMP ₹83.8. Company fell 8.5% on weak Q4 FY26 (PAT -44.4% YoY), but long-term wind energy thesis intact. JM Financial also bullish. <br><b>Why it might move:</b> Classic reversal setup. Stock beaten down on one weak quarter. 1,500 MW MoU directly addresses the "order inflow weakness" that caused the sell-off. Wind is a structural multi-year story. <a href="https://groww.in/stocks/inox-wind-ltd" target="_blank" style="color:var(--blue)">Groww – Inox Wind</a></div>
+  </div>
+
+  <div class="spot-card">
+    <div class="spot-head"><span class="spot-ticker">FIVESTAR</span><span class="spot-co">Five-Star Business Finance Ltd</span></div>
+    <div class="ctext"><b>Investor/Catalyst:</b> Financial sector leading Sensex; DII inflows ₹1,561 Cr. Five-Star's niche (small-ticket secured SME loans in rural India) insulates it from large corporate cycles. +6.6% today on sector flow. Strong NIM, low NPA historically. <br><b>Why it might move:</b> NBFC re-rating wave as inflation risk recedes (Iran oil deal). Market re-discovering quality small-ticket NBFCs as a distinct asset class post-banking sector consolidation. Monitor for any FII/DII purchase disclosures.</div>
+  </div>
+
+  <div class="section-title"><span class="emoji">🔔</span> Additional Small Cap Catalysts Today (Not In Top 5)</div>
+
+  <div class="spot-card">
+    <div class="spot-head"><span class="spot-ticker">WELSPUNLIV</span><span class="spot-co">Welspun Living Ltd — Already in Top 5 but additional context</span></div>
+    <div class="ctext"><b>Extended Note:</b> Welspun Living is a global home textiles company with major US buyer relationships (Walmart, Target, IKEA). The Red Sea shipping disruption that has been costing Indian textile exporters 3–4x freight premiums since 2024 is now easing as the Hormuz/Suez situation normalizes post-Iran deal. Combined with lower energy costs for manufacturing (particularly natural gas used in spinning/dyeing), Welspun's margin profile is set to improve structurally. This +10.4% move may be early innings of a re-rating.</div>
+  </div>
+
+  <div class="spot-card">
+    <div class="spot-head"><span class="spot-ticker">REDINGTON</span><span class="spot-co">Redington Ltd</span></div>
+    <div class="ctext"><b>Catalyst:</b> +8.9% today (₹271, +₹22.08). Redington is a major IT products distributor for Apple, HP, and other brands across India and MENA. The Apple-Intel chip deal announced in the US could drive renewed iPhone/Mac premium cycles in India — Redington as distributor benefits from Apple demand cycles. MENA exposure is also relevant as the region reopens post-Iran deal. <b>ISS: 9/20.</b> Lower conviction but worth watching.</div>
+  </div>
+
+  <div class="spot-card">
+    <div class="spot-head"><span class="spot-ticker">NEWINDI</span><span class="spot-co">New India Assurance Company Ltd</span></div>
+    <div class="ctext"><b>Catalyst:</b> +8.9% today (₹180.25). PSU general insurer; defence and infrastructure project risks being added to India's books as military procurement accelerates. The ₹1,78,000 crore defence production record means more policy and project insurance. Additionally, as a PSU financial, benefits from the same DII inflow wave hitting broader PSU financials today.</div>
+  </div>
+</div>
+
+<!-- ═══ TAB: GLOBAL PICKS ═══ -->
+<div id="tab-global" class="section">
+  <div class="section-title"><span class="emoji">🌍</span> Global Predictions — US + India (Broad Market)</div>
+  <div class="pred-grid">
+
+    <div>
+      <div class="pred-col-title">📈 Likely to Rise Today</div>
+
+      <div style="font-size:0.75rem;color:var(--muted);margin-bottom:8px;">🇺🇸 US Stocks</div>
+
+      <div class="global-card rise">
+        <div class="card-top" style="display:flex;justify-content:space-between;align-items:center;">
+          <div><span style="font-weight:800;font-size:1rem;">INTC</span> <span style="font-size:0.75rem;color:var(--muted)">Intel Corporation</span></div>
+          <div style="display:flex;gap:8px;align-items:center;"><span style="font-size:0.8rem;">$121.10–$133.82</span> <span class="score-pill pos">Score +7</span></div>
+        </div>
+        <div class="ctext" style="margin-top:8px;">Trump announced on Truth Social that Apple has agreed to work with Intel to design and manufacture chips domestically, sending INTC surging 10.5%+ intraday to ~$133.82. This validates Intel's foundry transformation thesis after years of market share losses to TSMC. Intel's 18A-P process is the key technology. Trump owns a ~10% stake in Intel — strong policy support is guaranteed. Stock up over 240% YTD from ~$19 start of year. Q2 earnings July 23 are the next check on whether formal customer commitments are being signed. News: +5 | Geo: +2 | Fundamental: −1 (stretched at 100x+ P/E) | Momentum: +1</div>
+      </div>
+
+      <div class="global-card rise">
+        <div class="card-top" style="display:flex;justify-content:space-between;align-items:center;">
+          <div><span style="font-weight:800;font-size:1rem;">MRVL</span> <span style="font-size:0.75rem;color:var(--muted)">Marvell Technology Inc</span></div>
+          <div style="display:flex;gap:8px;align-items:center;"><span style="font-size:0.8rem;">~$323</span> <span class="score-pill pos">Score +7</span></div>
+        </div>
+        <div class="ctext" style="margin-top:8px;">Marvell surged 12.12% (per TheStreet data, up ~11.6% to $323 per Investing.com) on the Apple-Intel chip partnership halo plus a brokerage price-target increase. Marvell's Q1 FY27 posted $2.418B revenue (+28% YoY) with Data Center revenue +45% to $1.833B; FY28 guidance raised to $16.5B. ISS data shows RSI 55.31 (neutral-bullish). The semiconductor sector rally was broad: SOXX ETF +3.9%, VanEck semi ETF +3.3%. News: +4 | Geo: +2 | Fundamental: +1 (strong DC growth) | Momentum: +1</div>
+      </div>
+
+      <div class="global-card rise">
+        <div class="card-top" style="display:flex;justify-content:space-between;align-items:center;">
+          <div><span style="font-weight:800;font-size:1rem;">AMAT</span> <span style="font-size:0.75rem;color:var(--muted)">Applied Materials Inc</span></div>
+          <div style="display:flex;gap:8px;align-items:center;"><span style="font-size:0.8rem;">+4.35%</span> <span class="score-pill pos">Score +6</span></div>
+        </div>
+        <div class="ctext" style="margin-top:8px;">Applied Materials rose 4.35% — the Apple-Intel deal requires significant semiconductor equipment investment in US-based foundries. AMAT supplies wafer fabrication equipment for advanced nodes including Intel 18A. Domestic chip manufacturing push = sustained capex for chip equipment companies. News: +3 | Geo: +2 (re-shoring policy) | Fundamental: +1 | Momentum: 0</div>
+      </div>
+
+      <div class="global-card rise">
+        <div class="card-top" style="display:flex;justify-content:space-between;align-items:center;">
+          <div><span style="font-weight:800;font-size:1rem;">DAL</span> <span style="font-size:0.75rem;color:var(--muted)">Delta Air Lines Inc</span></div>
+          <div style="display:flex;gap:8px;align-items:center;"><span style="font-size:0.8rem;">Expected +3-5%</span> <span class="score-pill pos">Score +6 🌐</span></div>
+        </div>
+        <div class="ctext" style="margin-top:8px;"><span class="badge b-geo" style="margin-right:5px;">🌐 GEO</span> US-Iran MOU sent Brent crude to $78.41 (−1.4%) and WTI to $75.83 (−1.25%). Jet fuel is 20–30% of airline operating costs. Airlines are the most direct and immediate US stock beneficiary of this geopolitical development. Delta has the strongest balance sheet and most fuel-efficient fleet of the major US carriers. News: +4 | Geo: +3 (direct Iran deal beneficiary) | Fundamental: +0 (recovering) | Momentum: −1</div>
+      </div>
+
+      <div class="global-card rise">
+        <div class="card-top" style="display:flex;justify-content:space-between;align-items:center;">
+          <div><span style="font-weight:800;font-size:1rem;">ARM</span> <span style="font-size:0.75rem;color:var(--muted)">Arm Holdings PLC</span></div>
+          <div style="display:flex;gap:8px;align-items:center;"><span style="font-size:0.8rem;">+5.69%</span> <span class="score-pill pos">Score +5</span></div>
+        </div>
+        <div class="ctext" style="margin-top:8px;">ARM rose 5.69% — as the architecture behind Apple silicon (A-series and M-series chips), ARM is central to any Apple chip manufacturing deal. A move to Intel foundry for some chips still uses ARM architecture. ARM's royalty model benefits from more Apple chips being manufactured and deployed. News: +3 | Geo: +1 | Fundamental: 0 | Momentum: +1</div>
+      </div>
+
+      <div style="font-size:0.75rem;color:var(--muted);margin:12px 0 8px;">🇮🇳 India Stocks (Global/Broad Picks)</div>
+
+      <div class="global-card rise">
+        <div class="card-top" style="display:flex;justify-content:space-between;align-items:center;">
+          <div><span style="font-weight:800;font-size:1rem;">HAL.NS</span> <span style="font-size:0.75rem;color:var(--muted)">Hindustan Aeronautics</span></div>
+          <div style="display:flex;gap:8px;align-items:center;"><span style="font-size:0.8rem;">₹5,280 est.</span> <span class="score-pill pos">Score +8 🌐</span></div>
+        </div>
+        <div class="ctext" style="margin-top:8px;"><span class="badge b-geo" style="margin-right:5px;">🌐 GEO</span> India defence production record ₹1,78,000 crore FY26 (+15.6% YoY). Nifty Defence index at ATH. HAL is the prime government-to-HAL channel for every fighter jet, helicopter, and aero engine programme. News: +3 | Geo: +3 | Fundamental: +1 | Momentum: +1</div>
+      </div>
+
+      <div class="global-card rise">
+        <div class="card-top" style="display:flex;justify-content:space-between;align-items:center;">
+          <div><span style="font-weight:800;font-size:1rem;">INTERGLOBE.NS</span> <span style="font-size:0.75rem;color:var(--muted)">IndiGo Airlines</span></div>
+          <div style="display:flex;gap:8px;align-items:center;"><span style="font-size:0.8rem;">₹4,450 est.</span> <span class="score-pill pos">Score +6 🌐</span></div>
+        </div>
+        <div class="ctext" style="margin-top:8px;"><span class="badge b-geo" style="margin-right:5px;">🌐 GEO</span> Brent at $78 on Iran peace MOU is a direct structural benefit. India imports ~85% crude — lower prices also help the macro, reducing rupee pressure and imported inflation. IndiGo has the largest fleet, most routes, and best fuel efficiency in India. News: +4 | Geo: +3 | Fundamental: 0 | Momentum: −1</div>
+      </div>
+
+      <div class="global-card rise">
+        <div class="card-top" style="display:flex;justify-content:space-between;align-items:center;">
+          <div><span style="font-weight:800;font-size:1rem;">DIXON.NS</span> <span style="font-size:0.75rem;color:var(--muted)">Dixon Technologies</span></div>
+          <div style="display:flex;gap:8px;align-items:center;"><span style="font-size:0.8rem;">₹16,000+ est.</span> <span class="score-pill pos">Score +5</span></div>
+        </div>
+        <div class="ctext" style="margin-top:8px;">Dixon + Gemtek (Taiwan) formed a JV for optical transceiver manufacturing in India today. The Apple-Intel domestic chip theme in the US directly validates India's China+1 electronics manufacturing story — Dixon is the prime beneficiary. News: +3 | Geo: +2 | Fundamental: +1 | Momentum: −1</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="pred-col-title">📉 Likely to Fall Today</div>
+
+      <div style="font-size:0.75rem;color:var(--muted);margin-bottom:8px;">🇺🇸 US Stocks</div>
+
+      <div class="global-card fall">
+        <div class="card-top" style="display:flex;justify-content:space-between;align-items:center;">
+          <div><span style="font-weight:800;font-size:1rem;">ACN</span> <span style="font-size:0.75rem;color:var(--muted)">Accenture PLC</span></div>
+          <div style="display:flex;gap:8px;align-items:center;"><span style="font-size:0.8rem;">$133–156 area</span> <span class="score-pill neg">Score −7</span></div>
+        </div>
+        <div class="ctext" style="margin-top:8px;">ACN opened down 18.9% on Q3 FY26 results: revenue $18.7B (missed $18.78B est.), new bookings $19.32B vs $19.7B prior year, full-year growth guidance cut to 3-4% (from 4-6%). Simultaneously announced $4.18B in cybersecurity acquisitions (Dragos, runZero, NetRise). Morgan Stanley cut to Equal-Weight. The underlying concern: AI spending is diverting enterprise budgets from traditional consulting — Accenture's core business. News: −5 | Geo: 0 | Fundamental: −1 | Momentum: −1</div>
+      </div>
+
+      <div class="global-card fall">
+        <div class="card-top" style="display:flex;justify-content:space-between;align-items:center;">
+          <div><span style="font-weight:800;font-size:1rem;">CVNA</span> <span style="font-size:0.75rem;color:var(--muted)">Carvana Co.</span></div>
+          <div style="display:flex;gap:8px;align-items:center;"><span style="font-size:0.8rem;">$62.86 (−10.25%)</span> <span class="score-pill neg">Score −6</span></div>
+        </div>
+        <div class="ctext" style="margin-top:8px;">Carvana fell 10.25% — appears to be earnings or guidance related (S&amp;P 500 major loser today per Yahoo Finance). Fed hawkish shift from Warsh (9 of 18 officials projecting rate hike) creates headwinds for auto financing companies as borrowing costs may rise further in H2 2026. News: −3 | Fundamental: −2 | Momentum: −1</div>
+      </div>
+
+      <div class="global-card fall">
+        <div class="card-top" style="display:flex;justify-content:space-between;align-items:center;">
+          <div><span style="font-weight:800;font-size:1rem;">XOM / CVX</span> <span style="font-size:0.75rem;color:var(--muted)">ExxonMobil / Chevron</span></div>
+          <div style="display:flex;gap:8px;align-items:center;"><span style="font-size:0.8rem;">CVX −2.16% today</span> <span class="score-pill neg">Score −4 🌐</span></div>
+        </div>
+        <div class="ctext" style="margin-top:8px;"><span class="badge b-geo" style="margin-right:5px;">🌐 GEO</span> Oil majors are direct victims of the Iran peace deal. Brent at $78 (down from $110+ peaks during the Iran war) reduces revenue and EPS for both. IEA projecting significant supply surplus by 2027 adds structural pressure. Chevron already down 2.16% today. News: −2 | Geo: −3 (direct victim) | Fundamental: +1 | Momentum: 0</div>
+      </div>
+
+      <div class="global-card fall">
+        <div class="card-top" style="display:flex;justify-content:space-between;align-items:center;">
+          <div><span style="font-weight:800;font-size:1rem;">SPCX</span> <span style="font-size:0.75rem;color:var(--muted)">SpaceX (Space Exploration Tech Corp)</span></div>
+          <div style="display:flex;gap:8px;align-items:center;"><span style="font-size:0.8rem;">$191.82 (−4.95%)</span> <span class="score-pill neg">Score −4</span></div>
+        </div>
+        <div class="ctext" style="margin-top:8px;">SpaceX IPO'd June 12 at $135, briefly passed $2.5T market cap, but is now down 4.95% today. The Warsh hawkish Fed shift (9 officials projecting rate hike) creates multiple compression pressure on high-valuation speculative growth stocks. SPCX has very high retail positioning ($369.8M net retail purchases in first 3 days). Fed hawkishness triggers risk-off rotation out of extreme-multiple names. News: −1 | Fundamental: −2 (speculative valuation) | Momentum: −1</div>
+      </div>
+
+      <div style="font-size:0.75rem;color:var(--muted);margin:12px 0 8px;">🇮🇳 India Stocks (Broad)</div>
+
+      <div class="global-card fall">
+        <div class="card-top" style="display:flex;justify-content:space-between;align-items:center;">
+          <div><span style="font-weight:800;font-size:1rem;">ONGC.NS</span> <span style="font-size:0.75rem;color:var(--muted)">Oil &amp; Natural Gas Corp</span></div>
+          <div style="display:flex;gap:8px;align-items:center;"><span style="font-size:0.8rem;">₹275 est.</span> <span class="score-pill neg">Score −6 🌐</span></div>
+        </div>
+        <div class="ctext" style="margin-top:8px;"><span class="badge b-geo" style="margin-right:5px;">🌐 GEO</span> Brent at $78 directly reduces ONGC's realization. IEA's surplus forecast adds structural downside. News: −3 | Geo: −3 | Fundamental: +1 | Momentum: −1</div>
+      </div>
+
+      <div class="global-card fall">
+        <div class="card-top" style="display:flex;justify-content:space-between;align-items:center;">
+          <div><span style="font-weight:800;font-size:1rem;">TCS.NS / INFY.NS</span> <span style="font-size:0.75rem;color:var(--muted)">IT Sector (broad)</span></div>
+          <div style="display:flex;gap:8px;align-items:center;"><span style="font-size:0.8rem;">Weak today</span> <span class="score-pill neg">Score −3</span></div>
+        </div>
+        <div class="ctext" style="margin-top:8px;">IT sector is "weak" per the June 18 India market close report ("Financials offset IT weakness"). Accenture's severe miss and guidance cut in the US (−18.9%) directly implicates IT services globally — Accenture is a leading indicator for TCS, Infosys, Wipro. Large enterprise IT spending remains muted. News: −3 | Geo: 0 | Fundamental: 0 | Momentum: 0</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title"><span class="emoji">👀</span> On The Radar</div>
+
+  <div class="radar-card">
+    <div style="font-weight:700;margin-bottom:5px;">IBM (IBM) — US: −5.43% Today</div>
+    <div class="ctext">IBM fell 5.43% — the worst Dow performer on June 18. Not enough information from searches to identify a specific catalyst today, but the broader IT services / consulting sell-off driven by Accenture's guidance cut is the likely cause. Score: −3 to −4. Watch for any specific IBM news at market open.</div>
+  </div>
+
+  <div class="radar-card">
+    <div style="font-weight:700;margin-bottom:5px;">MU (Micron Technology) — US: +8% ahead of earnings</div>
+    <div class="ctext">Micron rose 8% today on the Apple-Intel semiconductor rally and ahead of its earnings next week. Memory demand recovery + HBM (High Bandwidth Memory) for AI data centers. Score: +5 on semiconductor/AI tailwinds.</div>
+  </div>
+
+  <div class="radar-card">
+    <div style="font-weight:700;margin-bottom:5px;">HCLTECH.NS / WIPRO.NS — India IT: Watch for further weakness</div>
+    <div class="ctext">IT sector explicitly weak on June 18. Accenture miss is a leading indicator for Indian IT. HCLTECH and WIPRO may see extended selling. Score: −2 to −3. Lower conviction than dedicated fall picks but worth monitoring.</div>
+  </div>
+
+  <div class="radar-card">
+    <div style="font-weight:700;margin-bottom:5px;">YES BANK.NS — At 52-Week High</div>
+    <div class="ctext">Yes Bank hit a 52-week high on June 18, extending gains over 5 sessions and adding ₹8,662 crore to market value after its partnership with Northern Arc Capital. Analysts remain cautious despite improved Q4 earnings and asset quality. Score: +3 (positive momentum but high analyst caution). On the radar.</div>
+  </div>
+</div>
+
+<!-- ═══ TAB: GEOPOLITICAL ═══ -->
+<div id="tab-geopolitical" class="section">
+  <div class="section-title"><span class="emoji">🌐</span> Geopolitical Impact — Active Themes Today (June 18, 2026)</div>
+
+  <!-- THEME 1: US-IRAN -->
+  <div class="geo-card">
+    <div class="geo-theme"><span class="icon">🕊️</span> Theme 1: US–Iran 14-Point MOU — Hormuz Reopens</div>
+    <div class="ctext">President Trump signed the US-Iran Memorandum of Understanding at Versailles, France on June 17, 2026, with formal documentation in Geneva on June 19. The 14-point MOU covers: toll-free transit through the Strait of Hormuz, removal of the US naval blockade, a multi-front ceasefire including Lebanon, and $300 billion in Iran reconstruction financing — with a 60-day negotiation window on nuclear dismantlement and sanctions. Brent crude fell immediately to $78.41 (−1.4%) and WTI to $75.83 (−1.25%). Iran's first crude oil exports in two months have already departed via the Strait. The IEA projects significant oil market surplus by 2027. Marine insurance war premiums remain elevated (weeks of sustained passage needed before removal), so freight cost normalisation is gradual. This is the most consequential geopolitical event for global markets today.</div>
+    <div class="geo-sub">Sector Beneficiaries</div>
+    <div class="geo-item"><span class="geo-win">Airlines: DAL, UAL, AAL (US) | INDIGO, SPICEJET (India)</span> — jet fuel 20-30% of costs; Brent at $78 vs $110+ peak is massive P&amp;L benefit</div>
+    <div class="geo-item"><span class="geo-win">Indian Macro: HDFCBANK, ICICIBANK, Nifty broadly</span> — India imports 85% crude; lower oil reduces CAD, INR pressure, CPI, giving RBI accommodation room</div>
+    <div class="geo-item"><span class="geo-win">Textiles/Exporters: WELSPUNLIV, KPRMILL, Page Industries</span> — Red Sea/Hormuz shipping lane normalisation cuts freight costs; apparel export margins expand</div>
+    <div class="geo-item"><span class="geo-win">India Pipes/Oil Infra: MANINDS</span> — Iran's $300B reconstruction = massive pipeline, water, gas infra contracts; Man Industries' Saudi JV positioned</div>
+    <div class="geo-item"><span class="geo-win">Middle East Reconstruction plays</span> — infrastructure, construction materials, pipe suppliers globally</div>
+    <div class="geo-sub">Sector Victims</div>
+    <div class="geo-item"><span class="geo-lose">Oil Majors: XOM, CVX, COP (US) | ONGC, OIL (India)</span> — lower crude directly hits upstream revenue; CVX already −2.16%</div>
+    <div class="geo-item"><span class="geo-lose">Tanker shippers: STNG, FRO, TNK</span> — rerouting premium collapses as Hormuz reopens; voyage times shorten; rates fall</div>
+    <div class="geo-item"><span class="geo-lose">OMCs: BPCL, HPCL, IOC (India)</span> — inventory loss (crude bought at $90-100 now priced at $78) + margin squeeze short-term</div>
+    <div class="geo-item"><span class="geo-lose">Gold: NEM, GOLD | MUTHOOTFIN, TITAN (India)</span> — lower geopolitical risk reduces safe-haven demand for gold; Brent fall = lower inflation expectations = gold loses yield-parity argument</div>
+    <div class="geo-sub">Source</div>
+    <div class="geo-item"><a href="https://www.ibtimes.co.uk/us-iran-peace-deal-oil-gold-markets-1803497" target="_blank" style="color:var(--blue)">IBTimes UK – US-Iran Deal Market Impact</a> | <a href="https://discoveryalert.com.au/us-iran-deal-oil-prices-hormuz-inflation-2026/" target="_blank" style="color:var(--blue)">Discovery Alert Analysis</a></div>
+  </div>
+
+  <!-- THEME 2: APPLE-INTEL DOMESTIC CHIP -->
+  <div class="geo-card">
+    <div class="geo-theme"><span class="icon">🇺🇸</span> Theme 2: Apple–Intel US Domestic Chip Partnership (Trump)</div>
+    <div class="ctext">President Trump announced on Truth Social that Apple has officially agreed to work with Intel to design and manufacture chips inside the United States using Intel's 18A-P process node. This is part of Trump's broader CHIPS Act-aligned push to reclaim US semiconductor manufacturing from Taiwan and South Korea. Intel CEO Lip-Bu Tan expects formal foundry customer commitments in H2 2026. For Apple, the arrangement diversifies a supply chain heavily reliant on TSMC. Intel's 18A-P delivers 9% higher performance or 18% lower power vs standard 18A, and is 20% more heat resistant. Intel stock surged 10.5%+ today, adding to a staggering 240%+ YTD gain. This single announcement lifted the entire semiconductor complex: MRVL +12%, ARM +5.7%, AMAT +4.4%, AVGO +4.3%, MU +8%.</div>
+    <div class="geo-sub">Sector Beneficiaries</div>
+    <div class="geo-item"><span class="geo-win">Semiconductor Equipment: AMAT, LRCX, KLAC</span> — new domestic fabs require massive equipment purchases; US fab = US equipment priority</div>
+    <div class="geo-item"><span class="geo-win">Memory: MU (Micron)</span> — broad semi rally + HBM AI demand; earnings next week</div>
+    <div class="geo-item"><span class="geo-win">Custom ASIC/IP: MRVL, AVGO, ARM</span> — all benefit from sustained US chip design activity and Apple ecosystem expansion</div>
+    <div class="geo-item"><span class="geo-win">India China+1: DIXON.NS, KAYNES.NS, AMBER.NS</span> — US domestic chip push validates India's electronics manufacturing ambition; Apple supply chain diversification includes India</div>
+    <div class="geo-sub">Sector Victims</div>
+    <div class="geo-item"><span class="geo-lose">TSMC (TSM)</span> — direct threat to Apple foundry volume; losing Apple orders is an existential concern for TSMC's business model</div>
+    <div class="geo-item"><span class="geo-lose">Samsung Foundry</span> — competing for the same Apple diversification agenda</div>
+    <div class="geo-sub">Source</div>
+    <div class="geo-item"><a href="https://www.bloomberg.com/news/articles/2026-06-18/intel-intc-share-price-soars-after-trump-says-it-struck-apple-chip-deal" target="_blank" style="color:var(--blue)">Bloomberg – Intel Apple Chip Deal</a> | <a href="https://www.investing.com/analysis/intels-apple-deal-could-redefine-the-markets-domestic-chip-narrative-200682434" target="_blank" style="color:var(--blue)">Investing.com Analysis</a></div>
+  </div>
+
+  <!-- THEME 3: FED WARSH HAWKISH SHIFT -->
+  <div class="geo-card">
+    <div class="geo-theme"><span class="icon">🏦</span> Theme 3: Fed Warsh Hawkish Debut — Rate Hike Risk Returns</div>
+    <div class="ctext">New Fed Chair Kevin Warsh held rates unchanged at 3.50–3.75% in his inaugural June 17, 2026 FOMC meeting but delivered a sharply hawkish surprise. Nine of 18 FOMC officials now project at least one rate hike by year-end 2026 (six project two hikes). The median 2026 dot plot jumped to 3.8% (from 3.4% in March). The policy statement was dramatically shortened, removing its prior easing bias. Warsh refused to submit his own dot ("It's not helpful in the conduct of policy") and announced task forces to overhaul Fed communications, dot plot procedures, and press conferences. PCE inflation is now projected at 3.6% by year-end 2026 (vs 2.7% in March) — geopolitical energy costs from the Iran war drove this revision. Stocks fell violently Wednesday on the press conference; Thursday brought a partial recovery as markets reconsidered the rate hike timing. The S&amp;P 500 ended the week +0.9% (11th win in 12 weeks).</div>
+    <div class="geo-sub">Sector Beneficiaries</div>
+    <div class="geo-item"><span class="geo-win">US Banks: JPM, GS, BAC, WFC</span> — higher-for-longer rates expand NIM; Warsh era favors traditional banking over speculative growth</div>
+    <div class="geo-item"><span class="geo-win">Indian IT (USD revenue): TCS.NS, INFY.NS, HCLTECH.NS</span> — hawkish Fed = stronger USD = revenue tailwind for Indian IT (INR cost base)</div>
+    <div class="geo-item"><span class="geo-win">Utilities with fixed long-term contracts</span> — hedge against inflation uncertainty</div>
+    <div class="geo-sub">Sector Victims</div>
+    <div class="geo-item"><span class="geo-lose">High-multiple growth stocks: SPCX, NVDA high-PEs, CVNA</span> — discount rate compression kills high-P/E names when rate hike risk returns</div>
+    <div class="geo-item"><span class="geo-lose">US Real Estate: XLRE −2.5% Wednesday</span> — higher rates = pressure on property valuations and REIT dividend yields</div>
+    <div class="geo-item"><span class="geo-lose">Consumer Discretionary: XLY −2.7% Wednesday</span> — higher borrowing costs pressure consumer spending capacity</div>
+    <div class="geo-item"><span class="geo-lose">Emerging Markets broadly</span> — stronger USD from rate hike expectations = capital outflows from EMs including India</div>
+    <div class="geo-sub">Source</div>
+    <div class="geo-item"><a href="https://www.cnbc.com/2026/06/17/fed-interest-rate-decision-june-2026.html" target="_blank" style="color:var(--blue)">CNBC – Fed Rate Decision June 2026</a> | <a href="https://finance.yahoo.com/economy/policy/articles/warsh-hawkish-shock-9-fed-180221394.html" target="_blank" style="color:var(--blue)">Yahoo Finance – Warsh Hawkish Shock</a></div>
+  </div>
+</div>
+
+<!-- ═══ TAB: US NEWS ═══ -->
+<div id="tab-usnews" class="section">
+  <div class="section-title"><span class="emoji">🇺🇸</span> US Market News Today — June 18, 2026</div>
+
+  <div class="news-card" style="border-left: 4px solid var(--gold);">
+    <div class="nhead">🚀 LEAD STORY: Trump's Apple-Intel Chip Partnership Announcement Sends Semis Surging</div>
+    <div class="nbody">A Truth Social post from President Trump on the morning of June 18, 2026 announced that Apple has reached a formal agreement to partner with Intel for chip design and manufacturing inside the United States. Intel surged 10.5%+ to ~$133.82 intraday, continuing a 240%+ YTD rally from its $19 early-2026 price. The move sent a wave through the semiconductor complex: Marvell +12.12%, Sandisk +11.1%, Broadcom +4.3%, Applied Materials +4.35%, ARM +5.69%, Micron +8%. The iShares Semiconductor ETF (SOXX) rose 3.9%. Intel CEO Lip-Bu Tan expects formal foundry customer commitments in H2 2026, with Q2 earnings on July 23 being the first real validation check. Apple stands to benefit by diversifying its near-complete reliance on TSMC for A-series and M-series processors. Intel's 18A-P process is 9% more performant or 18% lower power than standard 18A.</div>
+    <div class="nsrc">Sources: <a href="https://www.bloomberg.com/news/articles/2026-06-18/intel-intc-share-price-soars-after-trump-says-it-struck-apple-chip-deal" target="_blank">Bloomberg</a> | <a href="https://www.investing.com/analysis/intels-apple-deal-could-redefine-the-markets-domestic-chip-narrative-200682434" target="_blank">Investing.com</a></div>
+  </div>
+
+  <div class="news-card" style="border-left: 4px solid var(--red);">
+    <div class="nhead">📉 Accenture (ACN) Collapses 18.9% on Mixed Earnings and Cybersecurity Acquisitions</div>
+    <div class="nbody">Accenture reported Q3 FY26 results before the market open: revenue $18.7B (+6% YoY, but missed the $18.78B consensus), EPS $3.80 (beat $3.72 consensus). Full-year revenue growth guidance was trimmed to 3%–4% (from 3%–5%), and Q4 guidance midpoint fell below Wall Street's $18.48B estimate. New bookings declined to $19.32B from $19.7B a year earlier — a signal that enterprise clients are deferring IT spending decisions. The company simultaneously announced $4.18B in cybersecurity acquisitions: a majority stake in Dragos (industrial cybersecurity) and full purchases of runZero and NetRise. Morgan Stanley cut ACN to Equal-Weight, citing AI spending diverting funds from traditional consulting. ACN opened 18.9% lower and is now the worst S&amp;P 500 performer in 2026 with at least $2B market cap. The implication for Indian IT: enterprise discretionary budgets remain constrained.</div>
+    <div class="nsrc">Sources: <a href="https://finance.yahoo.com/markets/stocks/articles/why-accenture-stock-opened-18-150957151.html" target="_blank">Yahoo Finance</a> | <a href="https://www.tradingkey.com/news/market-movers/261976798-market-movers-acn-20260618" target="_blank">TradingKey</a></div>
+  </div>
+
+  <div class="news-card">
+    <div class="nhead">🏦 Fed Chair Warsh Delivers Hawkish Shock in Inaugural FOMC Meeting</div>
+    <div class="nbody">The Federal Open Market Committee kept rates unchanged at 3.50%–3.75% on June 17, 2026 in Fed Chair Kevin Warsh's first meeting. However, the dot plot showed 9 of 18 participants project at least one rate hike by year-end 2026 — a dramatic shift. The median rate projection jumped to 3.8% (from 3.4% in March). Warsh removed his own dot ("not helpful in the conduct of policy") and rewrote the Fed statement to be shorter, simpler, and without the prior easing bias. He announced four task forces to review Fed communications, dot plots, and press conferences. PCE inflation forecast revised to 3.6% at year-end (vs 2.7% in March). Markets tumbled Wednesday on Warsh's first press conference — the worst "Fed Day" for the S&amp;P 500 under a new chair since 1994. Thursday partial recovery came as markets reconsidered rate hike timeline: the S&amp;P 500 rose 1% Thursday and ended the week +0.9% for its 11th winning week in 12.</div>
+    <div class="nsrc">Sources: <a href="https://www.cnbc.com/2026/06/17/fed-interest-rate-decision-june-2026.html" target="_blank">CNBC</a> | <a href="https://www.foxbusiness.com/economy/federal-reserve-interest-rate-decision-june-17-2026" target="_blank">Fox Business</a></div>
+  </div>
+
+  <div class="news-card">
+    <div class="nhead">🕊️ US-Iran 14-Point MOU Signed — Strait of Hormuz to Reopen; Oil Drops</div>
+    <div class="nbody">President Trump and Iranian President Masud Pezeshkian signed a 14-point Memorandum of Understanding at Versailles on June 17, with formal signing in Geneva planned for June 19. Key terms: toll-free Hormuz transit, immediate US naval blockade removal, a multi-front ceasefire including Lebanon, and $300 billion financing for Iran reconstruction. The MOU extends the April ceasefire by 60 days for final negotiations on nuclear dismantlement and sanctions. Brent crude fell 1.4% to $78.41; WTI fell 1.25% to $75.83. Iran's first crude oil exports in two months have been verified via satellite. The IEA now projects a significant oil supply surplus by 2027. Airlines, consumer stocks, and India broadly benefit. Oil majors and tankers are under pressure.</div>
+    <div class="nsrc">Sources: <a href="https://www.ibtimes.co.uk/us-iran-peace-deal-oil-gold-markets-1803497" target="_blank">IBTimes UK</a> | <a href="https://www.rferl.org/a/iran-war-us-hormuz-oil-blockade-gulf-israel/33640284.html" target="_blank">RFERL</a></div>
+  </div>
+
+  <div class="news-card">
+    <div class="nhead">📈 SpaceX (SPCX) Listed June 12; Down 4.95% Today on Rate Risk</div>
+    <div class="nbody">SpaceX IPO'd June 12, 2026 at $135 per share, briefly surpassing a $2.5T market cap and briefly exceeding Microsoft in market value. Retail demand was unprecedented: Vanda Research data shows $369.8M net retail purchases in the first three days. Elon Musk became the world's first acknowledged trillionaire. However, SPCX fell 4.95% on June 18 to $191.82 as the Warsh hawkish Fed shift triggered multiple compression across high-valuation growth stocks. The stock remains up ~42% from its IPO price in just 6 trading days.</div>
+    <div class="nsrc">Sources: <a href="https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-june-18-2026" target="_blank">TheStreet</a> | <a href="https://intellectia.ai/blog/spacex-ipo-spcx-stock-fed-rates-june-2026" target="_blank">Intellectia AI</a></div>
+  </div>
+
+  <div class="news-card">
+    <div class="nhead">📊 US Economic Data — Retail Sales, PCE, Oil Inventories</div>
+    <div class="nbody">Retail sales rose 0.9% in May (vs 0.4% Zacks estimate); YoY +6.9%, indicating strong consumer spending. Crude oil inventories fell 8.3M barrels for the week ending June 12 — a tightness signal pre-deal. Russell 2000 led all major indices Thursday (+2.12% to 2,979.77) as modest Treasury yield declines benefited small-cap borrowers. The S&amp;P 500 posted 27 new 52-week highs and 18 new lows. 23.66B shares traded (vs 20-session average of 21.07B), confirming high participation. Data next week includes Q1 GDP and May PCE — both key for validating whether Warsh's inflation concerns are justified.</div>
+    <div class="nsrc">Sources: <a href="https://sg.finance.yahoo.com/news/stock-market-news-jun-18-105700249.html" target="_blank">Yahoo Finance / Zacks</a> | <a href="https://www.schwab.com/learn/story/stock-market-update-open" target="_blank">Schwab Market Update</a></div>
+  </div>
+</div>
+
+<!-- ═══ TAB: INDIA NEWS ═══ -->
+<div id="tab-indianews" class="section">
+  <div class="section-title"><span class="emoji">🇮🇳</span> India Market News Today — June 18, 2026</div>
+
+  <div class="news-card" style="border-left: 4px solid var(--green);">
+    <div class="nhead">🟢 Sensex +254 pts, Nifty +82 pts — Fifth Consecutive Green Session; Financials Lead</div>
+    <div class="nbody">Indian benchmark indices extended their winning streak to five consecutive sessions on June 18, 2026. Sensex closed at approximately 77,386 (+254 pts) and Nifty 50 at ~24,162 (+82 pts). The day's gains were explicitly led by financial and pharma stocks, with IT stocks acting as a drag. FII activity remained muted at ₹101.59 Cr (June 17), while DII buying was a strong ₹1,561.40 Cr — confirming domestic institutional conviction. The Nifty Defence index hit a new all-time high, contributing to the positive sentiment. The market digested the US-Iran peace deal news positively, interpreting it as a macro tailwind for India's current account deficit (India imports ~85% crude oil). Markets closed before the US Juneteenth holiday on Friday June 19.</div>
+    <div class="nsrc">Sources: <a href="https://hdfcsky.com/news/stock-market-close-june-18-2026-sensex-nifty-extend-gains-fifth-day-financials-offset-it-weakness" target="_blank">HDFCSky</a> | <a href="https://trendlyne.com/markets-today/" target="_blank">Trendlyne</a></div>
+  </div>
+
+  <div class="news-card" style="border-left: 4px solid var(--gold);">
+    <div class="nhead">🏆 HFCL Wins ₹2,666 Crore RVNL BharatNet Phase-III Contract — Confirmed BSE Filing</div>
+    <div class="nbody">HFCL (Himachal Futuristic Communications) secured a contract worth approximately ₹2,666.09 crore from Rail Vikas Nigam Limited (RVNL) for the BharatNet Phase-III project in the Uttar Pradesh (West) Telecom Circle — filed with BSE on June 17–18, 2026. The contract covers: supply of telecom equipment and accessories, installation and commissioning of infrastructure, deployment of an Optical Fiber Cable (OFC) network, and 10-year operations and maintenance (including 1-year warranty). The ₹2,666 crore is split between ₹1,192.82 Cr capex (2-year implementation) and ₹1,473.27 Cr opex (O&amp;M). HFCL's total order book now exceeds ₹23,872 crore. Q4 FY26 net profit ₹178.50 Cr (turnaround from -₹81.43 Cr loss a year ago). Stock has surged 165% in 3 months; near its 52-week high of ₹208.98.</div>
+    <div class="nsrc">Sources: <a href="https://www.business-standard.com/markets/news/hfcl-jumps-over-4-nears-52-week-high-on-winning-2-666-cr-rvnl-contract-126061800256_1.html" target="_blank">Business Standard</a> | <a href="https://upstox.com/news/market-news/stocks/hfcl-shares-in-focus-as-firm-bags-order-worth-2-666-crore-from-rvnl-details-here/article-195529/" target="_blank">Upstox</a></div>
+  </div>
+
+  <div class="news-card">
+    <div class="nhead">🛡️ India Defence Production Record ₹1,78,000 Crore FY26; Nifty Defence Index at ATH</div>
+    <div class="nbody">India's defence production reached a record ₹1,78,000 crore (~$21.3B) in fiscal year 2026 — a 15.6% increase from FY25 — driven by government policy push, PLI schemes, and rising global export demand. The Nifty India Defence Index and BSE India Defence Index both hit new all-time highs on June 18, gaining 1% intraday and up 33% since April 2026 vs Nifty 50's 8% gain. Since April, four stocks have more than doubled: MTAR Technologies, Paras Defence and Space Technologies, Apollo Micro Systems, and Walchandnagar Industries. Other strong performers include Astra Microwave Products (+96%), Data Patterns (+43–66%), and Garden Reach Shipbuilders. HAL and BEL continue to be the large-cap anchors of the defence rally.</div>
+    <div class="nsrc">Sources: <a href="https://www.business-standard.com/markets/news/buzzing-sector-nifty-india-defence-index-hits-new-high-4-stocks-up-over-100-since-april-126061800505_1.html" target="_blank">Business Standard – June 18, 2026</a> | <a href="https://pulse.zerodha.com/" target="_blank">Zerodha Pulse</a></div>
+  </div>
+
+  <div class="news-card">
+    <div class="nhead">🛢️ US-Iran MOU Signed: India Benefits from Lower Oil; OMCs &amp; ONGC Under Pressure</div>
+    <div class="nbody">The US-Iran 14-point peace agreement is a significant macro positive for India — the world's third-largest oil consumer and an ~85% crude importer. Brent crude at $78.41 (vs $110+ during peak Iran conflict) translates to several thousand crore per year in reduced import bills. The rupee should find support, and the RBI has more room to stay accommodative. However, short-term negatives exist: ONGC and Oil India face realization pressure, while OMCs (BPCL, HPCL, IOC) face inventory losses and marketing margin compression as crude falls faster than retail fuel prices adjust. The government may announce retail fuel price cuts with lower oil — a signal to watch for.</div>
+    <div class="nsrc">Sources: <a href="https://www.rferl.org/a/iran-war-us-hormuz-oil-blockade-gulf-israel/33640284.html" target="_blank">RFERL – June 18, 2026</a> | <a href="https://discoveryalert.com.au/us-iran-deal-oil-prices-hormuz-inflation-2026/" target="_blank">Discovery Alert</a></div>
+  </div>
+
+  <div class="news-card">
+    <div class="nhead">📱 Nykaa Partners OpenAI | Dixon-Gemtek JV | TCS-Tottenham | HCLTech HPE Award</div>
+    <div class="nbody">Multiple India tech partnerships were announced on June 18 per ScanX and Zerodha Pulse: (1) Nykaa (FSN E-Commerce) partners with OpenAI for AI-powered beauty commerce — a marquee AI brand association; (2) Dixon Technologies and Gemtek (Taiwan) form a JV for optical transceiver manufacturing in India — a significant electronics manufacturing play; (3) TCS signed a digital transformation partnership with Premier League club Tottenham Hotspur; (4) HCLTech was named HPE Storage Partner of the Year 2026; (5) Infosys announced collaboration with Valmet for AI-reimagined IT operations. The broader theme: India's IT companies are pivoting from legacy services to AI-embedded partnerships — but Accenture's miss suggests the monetisation is taking longer than hoped.</div>
+    <div class="nsrc">Sources: <a href="https://scanx.trade/stock-market-news/orders-deals" target="_blank">ScanX</a> | <a href="https://pulse.zerodha.com/" target="_blank">Zerodha Pulse</a></div>
+  </div>
+
+  <div class="news-card">
+    <div class="nhead">🏦 Yes Bank at 52-Week High | NSE IPO ₹30,000 Cr in Focus</div>
+    <div class="nbody">Yes Bank shares climbed to a 52-week high, adding ₹8,662 crore to market value, following its partnership with Northern Arc Capital and improved Q4 results. Analysts remain cautious despite improved asset quality and technical momentum. Separately, the National Stock Exchange (NSE) is advancing toward India's largest-ever IPO at ~₹30,000 crore — State Bank of India alone expects ₹5,000 crore profit from its NSE stake sale. Long-term NSE investors are also positioned for extraordinary returns. The NSE IPO listing will be on BSE and is a landmark event for Indian capital markets, following years of regulatory hurdles.</div>
+    <div class="nsrc">Sources: <a href="https://pulse.zerodha.com/" target="_blank">Zerodha Pulse / Economic Times</a></div>
+  </div>
+
+  <div class="news-card">
+    <div class="nhead">🌬️ Inox Wind Signs 1,500 MW MoU with Inox Clean Energy</div>
+    <div class="nbody">Inox Wind Ltd signed an MoU with Inox Clean Energy to supply 1,500 MW of wind turbines, expanding its order book to 4.5 GW, per ScanX. This directly addresses the "order inflow weakness" that caused Inox Wind's Q4 FY26 results to disappoint (PAT fell 44.4% YoY to ₹105.7 crore). Motilal Oswal has a Buy rating on the stock (CMP ₹83.8). JM Financial is also bullish. India's 500 GW renewables target by 2030 and MNRE ALMM notification effective July 31, 2025 provide a structural tailwind. However, the counterparty (Inox Clean) being a group company may attract sceptical market response.</div>
+    <div class="nsrc">Sources: <a href="https://scanx.trade/stock-market-news/orders-deals" target="_blank">ScanX</a> | <a href="https://groww.in/stocks/inox-wind-ltd" target="_blank">Groww</a></div>
+  </div>
+</div>
+
+<!-- ═══ TAB: FUNDAMENTALS ═══ -->
+<div id="tab-fundamentals" class="section">
+  <div class="section-title"><span class="emoji">📋</span> Fundamentals Appendix — All Stocks Analyzed</div>
+  <div class="tbl-wrap">
+    <table id="fundTable">
+      <thead><tr>
+        <th onclick="sortTable('fundTable',0)">Ticker</th>
+        <th onclick="sortTable('fundTable',1)">Company</th>
+        <th onclick="sortTable('fundTable',2)">Market</th>
+        <th onclick="sortTable('fundTable',3)">Cap Tier</th>
+        <th onclick="sortTable('fundTable',4)">Mkt Cap</th>
+        <th onclick="sortTable('fundTable',5)">Price</th>
+        <th onclick="sortTable('fundTable',6)">P/E</th>
+        <th onclick="sortTable('fundTable',7)">P/B</th>
+        <th onclick="sortTable('fundTable',8)">EPS TTM</th>
+        <th onclick="sortTable('fundTable',9)">52W High</th>
+        <th onclick="sortTable('fundTable',10)">52W Low</th>
+        <th onclick="sortTable('fundTable',11)">ISS / Score</th>
+        <th onclick="sortTable('fundTable',12)">Catalyst</th>
+        <th onclick="sortTable('fundTable',13)">Prediction</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td class="td-y">INTC</td><td>Intel Corporation</td><td>US</td><td>Large</td>
+          <td>~$580B</td><td class="td-g">$121–133</td><td>100x+</td><td>—</td><td>—</td>
+          <td>$133.82</td><td>$18.51</td><td class="td-g">+7</td><td>Apple chip deal (Trump)</td><td class="td-g">📈 Rise</td>
+        </tr>
+        <tr>
+          <td class="td-y">MRVL</td><td>Marvell Technology</td><td>US</td><td>Large</td>
+          <td>~$280B</td><td class="td-g">$297–323</td><td>—</td><td>—</td><td>—</td>
+          <td>$323</td><td>—</td><td class="td-g">+7</td><td>Semi rally + PT upgrade</td><td class="td-g">📈 Rise</td>
+        </tr>
+        <tr>
+          <td class="td-y">AMAT</td><td>Applied Materials</td><td>US</td><td>Large</td>
+          <td>~$180B</td><td class="td-g">+4.35%</td><td>—</td><td>—</td><td>—</td>
+          <td>—</td><td>—</td><td class="td-g">+6</td><td>Semi equipment rally</td><td class="td-g">📈 Rise</td>
+        </tr>
+        <tr>
+          <td class="td-y">DAL</td><td>Delta Air Lines</td><td>US</td><td>Large</td>
+          <td>~$30B</td><td class="td-g">Expected +3-5%</td><td>8x</td><td>—</td><td>—</td>
+          <td>—</td><td>—</td><td class="td-g">+6</td><td>Oil drop (Iran deal)</td><td class="td-g">📈 Rise</td>
+        </tr>
+        <tr>
+          <td class="td-y">ARM</td><td>Arm Holdings PLC</td><td>US</td><td>Large</td>
+          <td>—</td><td class="td-g">+5.69%</td><td>—</td><td>—</td><td>—</td>
+          <td>—</td><td>—</td><td class="td-g">+5</td><td>Apple ecosystem</td><td class="td-g">📈 Rise</td>
+        </tr>
+        <tr>
+          <td class="td-y">MU</td><td>Micron Technology</td><td>US</td><td>Large</td>
+          <td>—</td><td class="td-g">+8%</td><td>—</td><td>—</td><td>—</td>
+          <td>—</td><td>—</td><td class="td-g">+5</td><td>Semi rally; earnings next week</td><td class="td-g">📈 Rise</td>
+        </tr>
+        <tr>
+          <td class="td-r">ACN</td><td>Accenture PLC</td><td>US</td><td>Large</td>
+          <td>~$86B</td><td class="td-r">$133–156</td><td>21x</td><td>—</td><td>$3.80</td>
+          <td>$200+</td><td>—</td><td class="td-r">−7</td><td>Revenue miss + guidance cut</td><td class="td-r">📉 Fall</td>
+        </tr>
+        <tr>
+          <td class="td-r">CVNA</td><td>Carvana Co.</td><td>US</td><td>Mid</td>
+          <td>—</td><td class="td-r">$62.86</td><td>—</td><td>—</td><td>—</td>
+          <td>—</td><td>—</td><td class="td-r">−6</td><td>Earnings / rate sensitive</td><td class="td-r">📉 Fall</td>
+        </tr>
+        <tr>
+          <td class="td-r">CVX</td><td>Chevron Corporation</td><td>US</td><td>Large</td>
+          <td>—</td><td class="td-r">−2.16%</td><td>14x</td><td>—</td><td>—</td>
+          <td>—</td><td>—</td><td class="td-r">−4</td><td>Oil price drop (Iran deal)</td><td class="td-r">📉 Fall</td>
+        </tr>
+        <tr>
+          <td class="td-r">SPCX</td><td>SpaceX (Space Expl Tech)</td><td>US</td><td>Large</td>
+          <td>$2.5T+</td><td class="td-r">$191.82</td><td>Extreme</td><td>—</td><td>—</td>
+          <td>$225.64</td><td>$135 IPO</td><td class="td-r">−4</td><td>Rate hike risk; multiple compression</td><td class="td-r">📉 Fall</td>
+        </tr>
+        <tr>
+          <td class="td-y">HAL</td><td>Hindustan Aeronautics</td><td>India</td><td>Large</td>
+          <td>₹1,75,000+ Cr</td><td class="td-g">₹5,280 est.</td><td>—</td><td>—</td><td>—</td>
+          <td>—</td><td>—</td><td class="td-g">19</td><td>Defence production ATH</td><td class="td-g">🚀 Surge</td>
+        </tr>
+        <tr>
+          <td class="td-y">BEL</td><td>Bharat Electronics</td><td>India</td><td>Large</td>
+          <td>₹75,000+ Cr</td><td class="td-g">₹310 est.</td><td>—</td><td>—</td><td>—</td>
+          <td>—</td><td>—</td><td class="td-g">16</td><td>Defence sector rally</td><td class="td-g">📈 Rise</td>
+        </tr>
+        <tr>
+          <td class="td-y">HDFCBANK</td><td>HDFC Bank Ltd</td><td>India</td><td>Large</td>
+          <td>₹14,00,000 Cr</td><td class="td-g">₹1,920 est.</td><td>18x</td><td>2.5x</td><td>—</td>
+          <td>—</td><td>—</td><td class="td-g">15</td><td>Financials lead Sensex; DII inflows</td><td class="td-g">📈 Rise</td>
+        </tr>
+        <tr>
+          <td class="td-y">INTERGLOBE</td><td>IndiGo (InterGlobe Aviation)</td><td>India</td><td>Large</td>
+          <td>₹68,000 Cr</td><td class="td-g">₹4,450 est.</td><td>—</td><td>—</td><td>—</td>
+          <td>—</td><td>—</td><td class="td-g">15</td><td>Oil drop on Iran peace deal</td><td class="td-g">📈 Rise</td>
+        </tr>
+        <tr>
+          <td class="td-r">ONGC</td><td>Oil &amp; Natural Gas Corp</td><td>India</td><td>Large</td>
+          <td>₹3,45,000 Cr</td><td class="td-r">₹275 est.</td><td>8x</td><td>1.0x</td><td>—</td>
+          <td>—</td><td>—</td><td class="td-r">Neg.</td><td>Oil falls on Iran deal</td><td class="td-r">📉 Fall</td>
+        </tr>
+        <tr>
+          <td class="td-y">HFCL</td><td>Himachal Futuristic Comm.</td><td>India</td><td>Mid</td>
+          <td>₹29,100 Cr</td><td class="td-g">₹196.45</td><td>—</td><td>—</td><td>—</td>
+          <td>₹208.98</td><td>₹59.82</td><td class="td-g">19</td><td>₹2,666 Cr RVNL order (BSE filing)</td><td class="td-g">🚀 Surge</td>
+        </tr>
+        <tr>
+          <td class="td-y">NYKAA</td><td>FSN E-Commerce (Nykaa)</td><td>India</td><td>Mid</td>
+          <td>~₹18,000 Cr</td><td class="td-g">₹298.00</td><td>—</td><td>—</td><td>—</td>
+          <td>—</td><td>—</td><td class="td-g">16</td><td>OpenAI Partnership</td><td class="td-g">📈 Rise</td>
+        </tr>
+        <tr>
+          <td class="td-y">KPRMILL</td><td>K.P.R. Mill Ltd</td><td>India</td><td>Mid</td>
+          <td>~₹40,500 Cr est.</td><td class="td-g">₹1,184.90</td><td>34x (Jan-26 ref.)</td><td>5.35x</td><td>₹24.50</td>
+          <td>—</td><td>₹758.80</td><td class="td-g">14</td><td>Institutional investor roadshow</td><td class="td-g">📈 Rise</td>
+        </tr>
+        <tr>
+          <td class="td-y">INOXWIND</td><td>Inox Wind Ltd</td><td>India</td><td>Mid</td>
+          <td>~₹4,500 Cr</td><td class="td-g">₹84 est.</td><td>—</td><td>—</td><td>—</td>
+          <td>—</td><td>—</td><td class="td-g">11</td><td>1,500 MW MoU (reversal)</td><td class="td-g">🔄 Reversal</td>
+        </tr>
+        <tr>
+          <td class="td-r">BPCL</td><td>Bharat Petroleum Corp</td><td>India</td><td>Mid</td>
+          <td>~₹1,40,000 Cr</td><td class="td-r">₹320 est.</td><td>6x</td><td>1.5x</td><td>—</td>
+          <td>—</td><td>—</td><td class="td-r">Neg.</td><td>Oil falls; OMC inventory loss</td><td class="td-r">📉 Fall</td>
+        </tr>
+        <tr>
+          <td class="td-y">MANINDS</td><td>Man Industries (India)</td><td>India</td><td>Small</td>
+          <td>~₹2,500 Cr</td><td class="td-g">₹546</td><td>—</td><td>—</td><td>—</td>
+          <td>₹606.40</td><td>₹302.05</td><td class="td-g">15</td><td>~₹1,000 Cr pipe orders + Saudi JV</td><td class="td-g">🚀 Surge</td>
+        </tr>
+        <tr>
+          <td class="td-y">WELSPUNLIV</td><td>Welspun Living Ltd</td><td>India</td><td>Small</td>
+          <td>~₹5,000 Cr</td><td class="td-g">₹161.87</td><td>—</td><td>—</td><td>—</td>
+          <td>—</td><td>—</td><td class="td-g">15</td><td>Textile exports / Red Sea easing</td><td class="td-g">📈 Rise</td>
+        </tr>
+        <tr>
+          <td class="td-y">BATAINDIA</td><td>Bata India Ltd</td><td>India</td><td>Small/Mid</td>
+          <td>~₹10,150 Cr</td><td class="td-g">₹789.90</td><td>—</td><td>—</td><td>—</td>
+          <td>₹1,284.90</td><td>₹676.05</td><td class="td-g">15</td><td>Technical breakout (reversal)</td><td class="td-g">🔄 Reversal</td>
+        </tr>
+        <tr>
+          <td class="td-y">FIVESTAR</td><td>Five-Star Business Finance</td><td>India</td><td>Small</td>
+          <td>—</td><td class="td-g">₹517.80</td><td>—</td><td>—</td><td>—</td>
+          <td>—</td><td>—</td><td class="td-g">12</td><td>Financial sector DII inflows</td><td class="td-g">📈 Rise</td>
+        </tr>
+        <tr>
+          <td class="td-r">CORONARE</td><td>Corona Remedies Ltd</td><td>India</td><td>Small</td>
+          <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+          <td>—</td><td>—</td><td class="td-r">Neg.</td><td>Block deal exit (₹748.7 Cr)</td><td class="td-r">📉 Fall</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="disclaimer">
+    <strong>⚠️ FOR INFORMATIONAL PURPOSES ONLY.</strong> This report is generated from public news sources, social media signals, exchange filings, and financial data as of June 18, 2026. It is <strong>NOT investment advice</strong>. Intraday picks are for intraday use only — they are not recommendations for swing or long-term positions. Stock predictions are inherently uncertain; geopolitical events are particularly difficult to forecast. Reversal candidates carry additional risk from prior negative momentum. Always verify exchange filings directly on NSE/BSE before trading. Fundamental data may be incomplete or estimated from available search results — verify on Screener.in, NSE, Moneycontrol, or Yahoo Finance before use. Do your own research and consult a SEBI-registered or licensed financial advisor before making investment decisions. US markets are closed on Friday June 19 (Juneteenth holiday). The Iran–US MOU is a 60-day extension and not a permanent peace agreement — significant reversal risk exists.
+  </div>
+</div>
+
+<script>
+  function showTab(name, ev) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    if (ev && ev.currentTarget) ev.currentTarget.classList.add('active');
+  }
+
+  function toggleTheme() {
+    const html = document.documentElement;
+    const dark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', dark ? 'light' : 'dark');
+    document.querySelector('.theme-btn').textContent = dark ? '🌙 Dark' : '☀️ Light';
+  }
+
+  function sortTable(tableId, col) {
+    const table = document.getElementById(tableId);
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    const th = table.querySelectorAll('th')[col];
+    const allTh = table.querySelectorAll('th');
+    const asc = th.classList.contains('asc');
+    allTh.forEach(h => h.classList.remove('asc', 'desc'));
+    th.classList.toggle('asc', !asc);
+    th.classList.toggle('desc', asc);
+    rows.sort((a, b) => {
+      const av = a.cells[col]?.textContent.trim() || '';
+      const bv = b.cells[col]?.textContent.trim() || '';
+      const an = parseFloat(av.replace(/[^0-9.\-]/g, ''));
+      const bn = parseFloat(bv.replace(/[^0-9.\-]/g, ''));
+      if (!isNaN(an) && !isNaN(bn)) return asc ? bn - an : an - bn;
+      return asc ? bv.localeCompare(av) : av.localeCompare(bv);
+    });
+    rows.forEach(r => tbody.appendChild(r));
+  }
+</script>
+</body>
+</html>
